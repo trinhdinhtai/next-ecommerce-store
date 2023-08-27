@@ -1,13 +1,16 @@
-import HeroImage from "@/components/HeroImage";
-import Container from "@/components/layout/container";
+import { getBillboards } from "@/actions/billboards";
+import Billboard from "@/components/Billboard";
+import Container from "@/components/ui/container";
 
 export const revalidate = 0;
 
 const HomePage = async () => {
+  const billboards = await getBillboards();
+
   return (
     <Container>
       <div className="space-y-10 pb-10">
-        <HeroImage />
+        <Billboard billboards={billboards} />
       </div>
     </Container>
   );
