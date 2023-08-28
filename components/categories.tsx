@@ -1,5 +1,4 @@
 import CategoryCard from "@/components/category-card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Category } from "@/types";
 
 interface CategoriesProps {

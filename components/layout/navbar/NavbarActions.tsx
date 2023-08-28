@@ -1,10 +1,10 @@
 "use client";
 
 import { ThemeToggle } from "@/components/ThemeToggle";
+import Search from "@/components/layout/navbar/search";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import useCart from "@/hooks/useCart";
-import { Heart, Search, ShoppingCart, User } from "lucide-react";
+import { Heart, ShoppingCart, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -23,16 +23,7 @@ const NavbarActions = () => {
 
   return (
     <div className="ml-auto flex items-center gap-2 text-gray-700 dark:text-gray-300">
-      <div className="relative w-[400px]">
-        <Input placeholder="Search for products ..." className="rounded-2xl" />
-
-        <Button
-          variant="ghost"
-          className="absolute top-0 right-0 rounded-tr-2xl rounded-br-2xl rounded-bl-none rounded-tl-none"
-        >
-          <Search size={24} />
-        </Button>
-      </div>
+      <Search />
 
       <ThemeToggle />
 
