@@ -20,7 +20,7 @@ const Billboard = ({ billboards }: BillboardProps) => {
           <div className="font-bold text-3xl sm:text-5xl lg:text-6xl sm:max-w-xl max-w-xs">
             {firstBillboard.label}
           </div>
-          <Button className="w-fit uppercase">Shop now</Button>
+          <Button className="w-fit uppercase font-semibold">Shop now</Button>
         </div>
       </div>
     </div>

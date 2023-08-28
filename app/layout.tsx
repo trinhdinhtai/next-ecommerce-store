@@ -9,7 +9,7 @@ import ModalProvider from "@/providers/modal-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GM E-Commerce",
+  title: "Anon",
   description: "A simple e-commerce site built with Next.js and Tailwind CSS.",
 };
 

@@ -21,7 +21,7 @@ const HomePage = async () => {
         <Billboard billboards={billboards} />
       </div>
 
-      <Products title="Featured Products" products={products} />
+      <Products title="New Products" products={products} />
     </Container>
   );
 };
