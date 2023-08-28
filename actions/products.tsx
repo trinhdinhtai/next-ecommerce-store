@@ -26,4 +26,10 @@ const getProducts = async (query: Query): Promise<Product[]> => {
   return res.json();
 };
 
-export { getProducts };
+const getProductById = async (id: string): Promise<Product> => {
+  const res = await fetch(`${URL}/${id}`);
+
+  return res.json();
+};
+
+export { getProducts, getProductById };

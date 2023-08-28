@@ -11,7 +11,7 @@ interface CartStore {
   removeAll: () => void;
 }
 
-const useCart = create(
+const useWishList = create(
   persist<CartStore>(
     (set, get) => ({
       items: [],
@@ -39,4 +39,4 @@ const useCart = create(
   )
 );
 
-export default useCart;
+export default useWishList;

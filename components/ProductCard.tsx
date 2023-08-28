@@ -7,23 +7,35 @@ import IconButton from "./ui/icon-button";
 import Currency from "./ui/currency";
 import usePreviewModal from "@/hooks/usePreviewModal";
 import { MouseEvent } from "react";
+import { useRouter } from "next/navigation";
+import useCart from "@/hooks/useCart";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const router = useRouter();
   const previewModal = usePreviewModal();
+  const cart = useCart();
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    router.push(`/product/${product?.id}`);
+  };
 
   const handleProductPreview = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     previewModal.onOpen(product);
   };
 
-  const onAddToCart = () => {};
-  const onAddToWishlist = () => {};
+  const handleAddToCart = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    cart.addItem(product);
+  };
+  const handleAddToWishlist = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    cart.addItem(product);
+  };
 
   return (
     <div
@@ -44,12 +56,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
               icon={<Expand size={18} className="text-gray-600" />}
             />
             <IconButton
-              onClick={onAddToCart}
+              onClick={handleAddToCart}
               icon={<ShoppingCart size={18} className="text-gray-600" />}
             />
 
             <IconButton
-              onClick={onAddToWishlist}
+              onClick={handleAddToWishlist}
               icon={<Heart size={18} className="text-gray-600" />}
             />
           </div>
