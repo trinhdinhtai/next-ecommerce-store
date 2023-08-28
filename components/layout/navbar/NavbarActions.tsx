@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useCart from "@/hooks/useCart";
@@ -21,7 +22,7 @@ const NavbarActions = () => {
   }
 
   return (
-    <div className="ml-auto flex items-center gap-2 text-gray-700">
+    <div className="ml-auto flex items-center gap-2 text-gray-700 dark:text-gray-300">
       <div className="relative w-[400px]">
         <Input placeholder="Search for products ..." className="rounded-2xl" />
 
@@ -33,13 +34,15 @@ const NavbarActions = () => {
         </Button>
       </div>
 
+      <ThemeToggle />
+
       <Button
         variant="ghost"
         className="px-3 relative"
         onClick={() => router.push("/cart")}
       >
         <ShoppingCart size={24} />
-        <span className="absolute w-4 h-4 rounded-full top-0 right-0 flex items-center justify-center bg-destructive text-xs text-secondary font-medium">
+        <span className="absolute w-4 h-4 rounded-full top-0 right-0 flex items-center justify-center bg-destructive text-destructive-foreground text-xs font-medium">
           {cart.items.length}
         </span>
       </Button>
@@ -49,7 +52,7 @@ const NavbarActions = () => {
         onClick={() => router.push("/wishlist")}
       >
         <Heart size={24} />
-        <span className="absolute w-4 h-4 rounded-full top-0 right-0 flex items-center justify-center bg-destructive text-xs text-secondary font-medium">
+        <span className="absolute w-4 h-4 rounded-full top-0 right-0 flex items-center justify-center bg-destructive text-destructive-foreground text-xs font-medium">
           {0}
         </span>
       </Button>
