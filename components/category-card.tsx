@@ -15,7 +15,7 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
             <h4 className="font-semibold">{category.name}</h4>
             <span className="text-muted-foreground text-xs">(53)</span>
           </div>
-          <Link href="/" className="text-sm">
+          <Link href={`${category.name}`} className="text-sm">
             Show All
           </Link>
         </div>

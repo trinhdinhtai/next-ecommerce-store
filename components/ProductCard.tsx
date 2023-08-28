@@ -9,6 +9,7 @@ import usePreviewModal from "@/hooks/usePreviewModal";
 import { MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import useCart from "@/hooks/useCart";
+import StarRating from "./ui/rating-star";
 
 interface ProductCardProps {
   product: Product;
@@ -40,7 +41,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div
       onClick={handleClick}
-      className="group cursor-pointer rounded-xl border p-3 space-y-4"
+      className="group cursor-pointer rounded-xl border p-3 flex flex-col gap-4"
     >
       <div className="aspect-square rounded-xl relative">
         <Image
@@ -70,12 +71,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
       {/* Description */}
       <div>
-        <p className="font-semibold text-lg">{product.name}</p>
+        <p className="font-semibold text-lg line-clamp-2">{product.name}</p>
         <p className="text-sm text-gray-500">{product.category?.name}</p>
       </div>
 
       {/* Price & Review */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-auto">
+        <StarRating rating={Math.floor(Math.random() * 5 + 1)} />
         <Currency value={product?.price} />
       </div>
     </div>
