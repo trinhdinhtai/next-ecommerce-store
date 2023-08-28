@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 const formatter = new Intl.NumberFormat("en-US", {
@@ -9,9 +10,13 @@ const formatter = new Intl.NumberFormat("en-US", {
 
 interface CurrencyProps {
   value?: string | number;
+  variant?: "default" | "contained";
 }
 
-const Currency: React.FC<CurrencyProps> = ({ value = 0 }) => {
+const Currency: React.FC<CurrencyProps> = ({
+  value = 0,
+  variant = "default",
+}) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -22,7 +27,17 @@ const Currency: React.FC<CurrencyProps> = ({ value = 0 }) => {
     return null;
   }
 
-  return <div className="font-semibold">{formatter.format(Number(value))}</div>;
+  return (
+    <div
+      className={cn(
+        "font-semibold w-fit",
+        variant === "contained" &&
+          "bg-primary text-secondary rounded-lg px-2 py-1"
+      )}
+    >
+      {formatter.format(Number(value))}
+    </div>
+  );
 };
 
 export default Currency;

@@ -5,14 +5,23 @@ import Image from "next/image";
 import { Expand, Heart, ShoppingCart } from "lucide-react";
 import IconButton from "./ui/icon-button";
 import Currency from "./ui/currency";
+import usePreviewModal from "@/hooks/usePreviewModal";
+import { MouseEvent } from "react";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const previewModal = usePreviewModal();
+
   const handleClick = () => {};
-  const onPreview = () => {};
+
+  const handleProductPreview = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    previewModal.onOpen(product);
+  };
+
   const onAddToCart = () => {};
   const onAddToWishlist = () => {};
 
@@ -31,7 +40,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="absolute top-2 right-2 opacity-0 translate-x-2/4 group-hover:opacity-100 group-hover:translate-x-0 transition">
           <div className="flex flex-col gap-2 justify-center">
             <IconButton
-              onClick={onPreview}
+              onClick={handleProductPreview}
               icon={<Expand size={18} className="text-gray-600" />}
             />
             <IconButton
