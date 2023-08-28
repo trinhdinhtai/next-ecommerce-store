@@ -31,7 +31,7 @@ const CartItem = ({ data }: CartItemProps) => {
         </div>
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
           <div className="flex justify-between">
-            <p className=" text-lg font-semibold text-black">{data.name}</p>
+            <p className=" text-lg font-semibold">{data.name}</p>
           </div>
 
           <div className="mt-1 flex text-sm">

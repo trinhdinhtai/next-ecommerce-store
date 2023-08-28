@@ -19,7 +19,11 @@ const StarRating = ({ rating }: StarRatingProps) => {
     );
   }
 
-  return <div className="flex item-centers gap-0.5">{starElements}</div>;
+  return (
+    <>
+      <div className="flex item-centers gap-0.5">{starElements}</div>
+    </>
+  );
 };
 
 export default StarRating;

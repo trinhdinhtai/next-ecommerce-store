@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import { Product } from "@/types";
 import { ShoppingCart } from "lucide-react";
+import StarRating from "./ui/rating-star";
 
 interface ProductInfoProps {
   product: Product;
@@ -31,6 +32,8 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
             style={{ backgroundColor: product?.color?.value }}
           />
         </div>
+
+        <StarRating rating={Math.floor(Math.random() * 5 + 1)} />
       </div>
 
       <div className="mt-6 flex items-center gap-x-3">
