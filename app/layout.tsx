@@ -7,6 +7,7 @@ import Footer from "@/components/layout/footer";
 import ModalProvider from "@/providers/modal-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Suspense } from "react";
+import ScrollToTopButton from "@/components/scroll-to-top-button";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
             <main>{children}</main>
           </Suspense>
           <Footer />
+          <ScrollToTopButton />
         </ThemeProvider>
       </body>
     </html>
