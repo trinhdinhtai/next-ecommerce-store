@@ -32,20 +32,15 @@ const Search = () => {
   };
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="w-max-[550px] relative w-full lg:w-80 xl:w-full"
-    >
-      <div className="relative w-[400px]">
-        <Input
-          name="search"
-          value={searchValue}
-          onChange={(event) => setSearchValue(event.target.value)}
-          placeholder="Search for products ..."
-          autoComplete="off"
-          className="rounded-2xl"
-        />
-      </div>
+    <form onSubmit={onSubmit} className="relative md:w-60 lg:w-[550px]">
+      <Input
+        name="search"
+        value={searchValue}
+        onChange={(event) => setSearchValue(event.target.value)}
+        placeholder="Search for products ..."
+        autoComplete="off"
+        className="rounded-2xl"
+      />
     </form>
   );
 };

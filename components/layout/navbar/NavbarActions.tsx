@@ -22,9 +22,7 @@ const NavbarActions = () => {
   }
 
   return (
-    <div className="ml-auto flex items-center gap-2 text-gray-700 dark:text-gray-300">
-      <Search />
-
+    <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
       <ThemeToggle />
 
       <Button
