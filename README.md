@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [E-commerce Store](https://taitd.shop/)
+
+## Tech Stack
+
+- **Framework:** [Next.js 13](https://nextjs.org)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com)
+- **User Management:** [Clerk](https://clerk.com)
+- **ORM:** [Prisma](https://www.prisma.io)
+- **UI Components:** [shadcn/ui](https://ui.shadcn.com)
+- **File Uploads:** [uploadthing](https://uploadthing.com)
+- **Payments infrastructure:** [Stripe](https://stripe.com)
 
 ## Getting Started
 
