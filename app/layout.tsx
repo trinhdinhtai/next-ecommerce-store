@@ -1,17 +1,19 @@
-import ToastProvider from "@/providers/toast-provider";
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Navbar from "@/components/layout/navbar";
-import Footer from "@/components/layout/footer";
-import ModalProvider from "@/providers/modal-provider";
-import { ThemeProvider } from "@/providers/theme-provider";
-import { Suspense } from "react";
-import ScrollToTopButton from "@/components/scroll-to-top-button";
+import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] });
+import { Suspense } from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 
-const { SITE_NAME } = process.env;
+import Footer from "@/components/layout/footer"
+import Navbar from "@/components/layout/navbar"
+import ModalProvider from "@/components/providers/modal-provider"
+import { ThemeProvider } from "@/components/providers/theme-provider"
+import ToastProvider from "@/components/providers/toast-provider"
+import ScrollToTopButton from "@/components/scroll-to-top-button"
+
+const inter = Inter({ subsets: ["latin"] })
+
+const { SITE_NAME } = process.env
 
 export const metadata: Metadata = {
   title: {
@@ -19,12 +21,12 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description: "A simple e-commerce site built with Next.js and Tailwind CSS.",
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
@@ -41,5 +43,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

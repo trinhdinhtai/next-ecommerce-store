@@ -1,19 +1,21 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { Billboard } from "@/types";
-import { Button } from "./ui/button";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Image from "next/image"
+import { Billboard as BillboardType } from "@/types"
+import Slider from "react-slick"
+
+import { Button } from "./ui/button"
+
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 interface BillboardProps {
-  billboards: Billboard[];
+  billboards: BillboardType[]
 }
 
 const Billboard = ({ billboards }: BillboardProps) => {
   return (
-    <div className="p-4 sm:p-6 lg:p-8 overflow-hidden">
+    <div className="overflow-hidden p-4 sm:p-6 lg:p-8">
       <Slider
         dots
         infinite
@@ -26,13 +28,13 @@ const Billboard = ({ billboards }: BillboardProps) => {
           <div
             key={billboard.id}
             style={{ backgroundImage: `url(${billboard?.imageUrl})` }}
-            className="rounded-xl relative aspect-[3/2] md:aspect-[2.4/1] overflow-hidden bg-cover"
+            className="relative aspect-[3/2] overflow-hidden rounded-xl bg-cover md:aspect-[2.4/1]"
           >
-            <div className="absolute left-10 top-2/4 -translate-y-2/4 text-[#212121] flex flex-col gap-6 z-20">
-              <div className="font-bold text-3xl md:text-4xl lg:text-6xl sm:max-w-xl max-w-xs">
+            <div className="absolute left-10 top-2/4 z-20 flex -translate-y-2/4 flex-col gap-6 text-[#212121]">
+              <div className="max-w-xs text-3xl font-bold sm:max-w-xl md:text-4xl lg:text-6xl">
                 {billboard.label}
               </div>
-              <Button className="w-fit uppercase font-semibold text-sm md:text-base">
+              <Button className="w-fit text-sm font-semibold uppercase md:text-base">
                 Shop now
               </Button>
             </div>
@@ -42,13 +44,13 @@ const Billboard = ({ billboards }: BillboardProps) => {
               src={billboard?.imageUrl as string}
               fill
               alt="billboard"
-              className="object-cover z-10"
+              className="z-10 object-cover"
             />
           </div>
         ))}
       </Slider>
     </div>
-  );
-};
+  )
+}
 
-export default Billboard;
+export default Billboard

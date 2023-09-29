@@ -1,10 +1,12 @@
-import { Product } from "@/types";
-import NoResults from "./NoResults";
-import ProductCard from "./ProductCard";
+import { Product } from "@/types"
+
+import ProductCard from "@/components/product/product-card"
+
+import NoResults from "../no-results"
 
 interface ProductListProps {
-  title: string;
-  products: Product[];
+  title: string
+  products: Product[]
 }
 
 const Products = ({ title, products }: ProductListProps) => {
@@ -12,7 +14,7 @@ const Products = ({ title, products }: ProductListProps) => {
     <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
       <div className="space-y-4">
         {products?.length ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -22,7 +24,7 @@ const Products = ({ title, products }: ProductListProps) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default Products

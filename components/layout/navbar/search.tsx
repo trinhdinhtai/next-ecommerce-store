@@ -1,35 +1,36 @@
-"use client";
+"use client"
 
-import { FormEvent, useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { useRouter, useSearchParams } from "next/navigation";
-import { createUrl } from "@/helpers/url";
+import { FormEvent, useEffect, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+
+import { createUrl } from "@/lib/url"
+import { Input } from "@/components/ui/input"
 
 const Search = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState("")
 
   useEffect(() => {
-    setSearchValue(searchParams?.get("q") || "");
-  }, [searchParams, setSearchValue]);
+    setSearchValue(searchParams?.get("q") || "")
+  }, [searchParams, setSearchValue])
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const val = event.target as HTMLFormElement;
-    const search = val.search as HTMLInputElement;
-    const newParams = new URLSearchParams(searchParams.toString());
+    const val = event.target as HTMLFormElement
+    const search = val.search as HTMLInputElement
+    const newParams = new URLSearchParams(searchParams.toString())
 
     if (search.value) {
-      newParams.set("q", search.value);
+      newParams.set("q", search.value)
     } else {
-      newParams.delete("q");
+      newParams.delete("q")
     }
 
-    router.push(createUrl("/search", newParams));
-  };
+    router.push(createUrl("/search", newParams))
+  }
 
   return (
     <form onSubmit={onSubmit} className="relative md:w-60 lg:w-[550px]">
@@ -42,7 +43,7 @@ const Search = () => {
         className="rounded-2xl"
       />
     </form>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search

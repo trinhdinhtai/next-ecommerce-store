@@ -1,17 +1,19 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import Currency from "@/components/ui/currency";
-import { Product } from "@/types";
-import { ShoppingCart } from "lucide-react";
-import StarRating from "./ui/rating-star";
+import { Product } from "@/types"
+import { ShoppingCart } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import Currency from "@/components/ui/currency"
+
+import StarRating from "../ui/rating-star"
 
 interface ProductInfoProps {
-  product: Product;
+  product: Product
 }
 
 const ProductInfo = ({ product }: ProductInfoProps) => {
-  const handleAddToCart = () => {};
+  const handleAddToCart = () => {}
 
   return (
     <div className="md:col-span-7">
@@ -43,7 +45,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductInfo;
+export default ProductInfo

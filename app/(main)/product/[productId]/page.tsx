@@ -1,28 +1,28 @@
-import { getProductById, getProducts } from "@/actions/products";
-import ProductInfo from "@/components/ProductInfo";
-import SuggestProductsList from "@/components/SuggestProductsList";
-import ProductGallery from "@/components/gallery";
-import ProductDetailsCarousel from "@/components/product-detail-carousel";
-import Container from "@/components/ui/container";
+import { getProductById, getProducts } from "@/actions/products"
+
+import Container from "@/components/ui/container"
+import ProductDetailsCarousel from "@/components/product/product-detail-carousel"
+import ProductInfo from "@/components/product/product-info"
+import SuggestProducts from "@/components/suggest-products"
 
 interface ProductIdPageProps {
   params: {
-    productId: string;
-  };
+    productId: string
+  }
 }
 
 const ProductIdPage = async ({ params }: ProductIdPageProps) => {
-  const product = await getProductById(params.productId);
+  const product = await getProductById(params.productId)
   const productsByCategoryId = await getProducts({
     categoryId: product?.category?.id,
-  });
+  })
 
   const suggestProducts = productsByCategoryId.filter(
     (product) => product.id !== params.productId
-  );
+  )
 
   if (!product) {
-    return null;
+    return null
   }
 
   return (
@@ -34,14 +34,11 @@ const ProductIdPage = async ({ params }: ProductIdPageProps) => {
             <ProductInfo product={product} />
           </div>
           <hr className="my-10" />
-          <SuggestProductsList
-            title="Related Items"
-            products={suggestProducts}
-          />
+          <SuggestProducts title="Related Items" products={suggestProducts} />
         </div>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default ProductIdPage;
+export default ProductIdPage

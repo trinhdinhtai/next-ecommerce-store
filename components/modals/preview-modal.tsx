@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import ProductInfo from "@/components/ProductInfo";
-import ProductGallery from "@/components/gallery";
-import Modal from "@/components/ui/modal";
-import usePreviewModal from "@/hooks/usePreviewModal";
+import usePreviewModal from "@/hooks/use-preview-modal"
+import Modal from "@/components/ui/modal"
+import ProductGallery from "@/components/gallery"
+import ProductInfo from "@/components/product/product-info"
 
 const PreviewModal = () => {
-  const previewModal = usePreviewModal();
-  const product = usePreviewModal((state) => state.data);
+  const previewModal = usePreviewModal()
+  const product = usePreviewModal((state) => state.data)
 
   if (!product) {
-    return null;
+    return null
   }
 
   return (
@@ -25,7 +25,7 @@ const PreviewModal = () => {
         <ProductInfo product={product} />
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default PreviewModal;
+export default PreviewModal
