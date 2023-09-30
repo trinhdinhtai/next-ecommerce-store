@@ -6,8 +6,8 @@ import Link from "next/link"
 import { Category } from "@/types"
 import Slider from "react-slick"
 
-import NextIcon from "./next-icon"
-import PrevIcon from "./prev-icon"
+import NextIcon from "@/components/slick/next-icon"
+import PrevIcon from "@/components/slick/prev-icon"
 
 interface CarouselProps {
   categories: Category[]
@@ -27,12 +27,13 @@ const CategoriesCarousel = ({ categories }: CarouselProps) => {
     prevArrow: <PrevIcon />,
     nextArrow: <NextIcon />,
   }
+
   return (
     <div className="">
       <Slider {...carouselSettings}>
         {categories?.map((category, i) => (
           <Link
-            href={`category/${category.id}`}
+            href={`categories/${category.id}`}
             key={category.id}
             className="h-[160px] w-[120px] border p-2"
           >
@@ -45,7 +46,7 @@ const CategoriesCarousel = ({ categories }: CarouselProps) => {
                   height={150}
                 />
               </div>
-              <div className="font-sm m-2 w-[98%] text-center text-sm font-light">
+              <div className="font-sm m-2 w-[98%] text-center text-sm font-normal">
                 {category.name}
               </div>
             </div>
