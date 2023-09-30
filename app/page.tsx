@@ -26,6 +26,7 @@ const HomePage = async () => {
       <div className="space-y-10 pb-10">
         <Billboard billboards={billboards} />
         <Categories categories={categories} />
+        <h1>Category Update</h1>
         <SectionHeading title="New Products" />
         <Products title="New Products" products={products} />
       </div>
