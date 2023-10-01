@@ -5,7 +5,7 @@ import { getProducts } from "@/actions/products"
 import Container from "@/components/ui/container"
 import SectionHeading from "@/components/ui/section-heading"
 import Billboard from "@/components/billboard/billboard"
-import Categories from "@/components/category/categories"
+import CategoriesCarousel from "@/components/category/categories-carousel"
 import Products from "@/components/product/products"
 
 export const revalidate = 0
@@ -25,7 +25,7 @@ const HomePage = async () => {
     <Container>
       <div className="space-y-10 pb-10">
         <Billboard billboards={billboards} />
-        <Categories categories={categories} />
+        <CategoriesCarousel categories={categories} />
         <SectionHeading title="New Products" />
         <Products title="New Products" products={products} />
       </div>
