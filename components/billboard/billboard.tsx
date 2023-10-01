@@ -5,7 +5,7 @@ import Image from "next/image"
 import { Billboard as BillboardType } from "@/types"
 import Slider from "react-slick"
 
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 
 interface BillboardProps {
   billboards: BillboardType[]
