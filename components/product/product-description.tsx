@@ -8,11 +8,11 @@ import Currency from "@/components/ui/currency"
 
 import StarRating from "../ui/rating-star"
 
-interface ProductInfoProps {
+interface ProductDescriptionProps {
   product: Product
 }
 
-const ProductInfo = ({ product }: ProductInfoProps) => {
+const ProductDescription = ({ product }: ProductDescriptionProps) => {
   const handleAddToCart = () => {}
 
   return (
@@ -48,4 +48,4 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
   )
 }
 
-export default ProductInfo
+export default ProductDescription

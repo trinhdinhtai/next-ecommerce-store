@@ -3,8 +3,8 @@ import { notFound } from "next/navigation"
 import { getProductById } from "@/actions/products"
 
 import Container from "@/components/ui/container"
+import ProductDescription from "@/components/product/product-description"
 import ProductDetailsCarousel from "@/components/product/product-detail-carousel"
-import ProductInfo from "@/components/product/product-info"
 import RelatedProducts from "@/components/related-products"
 
 interface ProductIdPageProps {
@@ -24,7 +24,7 @@ export default async function ProductIdPage({ params }: ProductIdPageProps) {
         <div className="px-4 py-10 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-start gap-x-6 gap-y-8 md:grid-cols-12 lg:gap-x-12">
             <ProductDetailsCarousel images={product.images} />
-            <ProductInfo product={product} />
+            <ProductDescription product={product} />
           </div>
           <hr className="my-10" />
           <Suspense>

@@ -3,7 +3,7 @@
 import usePreviewModal from "@/hooks/use-preview-modal"
 import Modal from "@/components/ui/modal"
 import ProductGallery from "@/components/gallery"
-import ProductInfo from "@/components/product/product-info"
+import ProductDescription from "@/components/product/product-description"
 
 const PreviewModal = () => {
   const previewModal = usePreviewModal()
@@ -22,7 +22,7 @@ const PreviewModal = () => {
     >
       <div className="grid grid-cols-1 items-start gap-x-6 gap-y-8 md:grid-cols-12 lg:gap-x-8">
         <ProductGallery images={product.images} />
-        <ProductInfo product={product} />
+        <ProductDescription product={product} />
       </div>
     </Modal>
   )
