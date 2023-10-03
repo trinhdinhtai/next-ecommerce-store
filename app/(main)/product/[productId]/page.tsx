@@ -1,9 +1,11 @@
-import { getProductById, getProducts } from "@/actions/products"
+import { Suspense } from "react"
+import { notFound } from "next/navigation"
+import { getProductById } from "@/actions/products"
 
 import Container from "@/components/ui/container"
 import ProductDetailsCarousel from "@/components/product/product-detail-carousel"
 import ProductInfo from "@/components/product/product-info"
-import SuggestProducts from "@/components/suggest-products"
+import RelatedProducts from "@/components/related-products"
 
 interface ProductIdPageProps {
   params: {
@@ -11,19 +13,10 @@ interface ProductIdPageProps {
   }
 }
 
-const ProductIdPage = async ({ params }: ProductIdPageProps) => {
+export default async function ProductIdPage({ params }: ProductIdPageProps) {
   const product = await getProductById(params.productId)
-  const productsByCategoryId = await getProducts({
-    categoryId: product?.category?.id,
-  })
 
-  const suggestProducts = productsByCategoryId.filter(
-    (product) => product.id !== params.productId
-  )
-
-  if (!product) {
-    return null
-  }
+  if (!product) return notFound()
 
   return (
     <div>
@@ -34,11 +27,14 @@ const ProductIdPage = async ({ params }: ProductIdPageProps) => {
             <ProductInfo product={product} />
           </div>
           <hr className="my-10" />
-          <SuggestProducts title="Related Items" products={suggestProducts} />
+          <Suspense>
+            <RelatedProducts
+              productId={product.id}
+              categoryId={product.category.id}
+            />
+          </Suspense>
         </div>
       </Container>
     </div>
   )
 }
-
-export default ProductIdPage
