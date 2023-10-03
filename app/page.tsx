@@ -4,7 +4,7 @@ import { getProducts } from "@/actions/products"
 
 import Container from "@/components/ui/container"
 import SectionHeading from "@/components/ui/section-heading"
-import Billboard from "@/components/billboard/billboard"
+import Billboard from "@/components/billboard"
 import Categories from "@/components/category/categories"
 import Products from "@/components/product/products"
 
