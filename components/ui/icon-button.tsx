@@ -1,11 +1,11 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler } from "react"
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
 interface IconButtonProps {
-  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
-  icon: React.ReactElement;
-  className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined
+  icon: React.ReactElement
+  className?: string
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
@@ -17,13 +17,13 @@ const IconButton: React.FC<IconButtonProps> = ({
     <button
       onClick={onClick}
       className={cn(
-        "rounded-full flex items-center justify-center border shadow-md p-2 hover:scale-110 transition",
+        "flex items-center justify-center rounded-full border p-2 shadow-md transition hover:scale-110",
         className
       )}
     >
       {icon}
     </button>
-  );
-};
+  )
+}
 
-export default IconButton;
+export default IconButton
