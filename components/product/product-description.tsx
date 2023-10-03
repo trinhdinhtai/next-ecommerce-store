@@ -7,14 +7,13 @@ import { Button } from "@/components/ui/button"
 import Currency from "@/components/ui/currency"
 
 import StarRating from "../ui/rating-star"
+import AddToCard from "./add-to-cart"
 
 interface ProductDescriptionProps {
   product: Product
 }
 
 const ProductDescription = ({ product }: ProductDescriptionProps) => {
-  const handleAddToCart = () => {}
-
   return (
     <div className="md:col-span-7">
       <div className="flex flex-col gap-4">
@@ -39,10 +38,7 @@ const ProductDescription = ({ product }: ProductDescriptionProps) => {
       </div>
 
       <div className="mt-6 flex items-center gap-x-3">
-        <Button onClick={handleAddToCart} className="flex items-center gap-x-2">
-          Add To Cart
-          <ShoppingCart size={20} />
-        </Button>
+        <AddToCard />
       </div>
     </div>
   )
