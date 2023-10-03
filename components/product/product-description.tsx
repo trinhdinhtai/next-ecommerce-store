@@ -38,7 +38,7 @@ const ProductDescription = ({ product }: ProductDescriptionProps) => {
       </div>
 
       <div className="mt-6 flex items-center gap-x-3">
-        <AddToCard />
+        <AddToCard productId={product.id} />
       </div>
     </div>
   )
