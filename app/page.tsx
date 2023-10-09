@@ -2,7 +2,7 @@ import { getBillboards } from "@/actions/billboards"
 import { getCategories } from "@/actions/categories"
 import { getProducts } from "@/actions/products"
 
-import Container from "@/components/ui/container"
+import { Shell } from "@/components/ui/shell"
 import Billboard from "@/components/billboard"
 import Categories from "@/components/category/categories"
 import Products from "@/components/product/products"
@@ -21,12 +21,10 @@ export default async function HomePage() {
   const products = responses[2]
 
   return (
-    <Container>
-      <div className="space-y-10 pb-10">
-        <Billboard billboards={billboards} />
-        <Categories categories={categories} />
-        <Products products={products} />
-      </div>
-    </Container>
+    <>
+      <Billboard billboards={billboards} />
+      <Categories categories={categories} />
+      <Products products={products} />
+    </>
   )
 }

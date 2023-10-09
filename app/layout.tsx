@@ -36,13 +36,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn(inter.variable, "font-sans")}>
+      <body
+        className={cn(
+          inter.variable,
+          "relative flex min-h-screen flex-col font-sans"
+        )}
+      >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ToasterProvider />
           <ModalProvider />
           <Navbar />
           <Suspense>
-            <main>{children}</main>
+            <main className="flex-1">{children}</main>
           </Suspense>
           <Footer />
           <ScrollToTopButton />

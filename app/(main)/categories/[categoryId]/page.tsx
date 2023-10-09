@@ -1,11 +1,12 @@
-import Container from "@/components/ui/container"
+import { Shell } from "@/components/ui/shell"
+import { PageHeader, PageHeaderHeading } from "@/components/page-header"
 
-const CategoriesPage = () => {
+export default function CategoryIdPage() {
   return (
-    <div>
-      <Container>CategoriesPage</Container>
-    </div>
+    <Shell>
+      <PageHeader>
+        <PageHeaderHeading size="sm">Category</PageHeaderHeading>
+      </PageHeader>
+    </Shell>
   )
 }
-
-export default CategoriesPage
