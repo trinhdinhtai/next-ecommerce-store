@@ -3,14 +3,13 @@ import { getCategories } from "@/actions/categories"
 import { getProducts } from "@/actions/products"
 
 import Container from "@/components/ui/container"
-import SectionHeading from "@/components/ui/section-heading"
 import Billboard from "@/components/billboard"
 import Categories from "@/components/category/categories"
 import Products from "@/components/product/products"
 
 export const revalidate = 0
 
-const HomePage = async () => {
+export default async function HomePage() {
   const responses = await Promise.all([
     getBillboards(),
     getCategories(),
@@ -31,5 +30,3 @@ const HomePage = async () => {
     </Container>
   )
 }
-
-export default HomePage

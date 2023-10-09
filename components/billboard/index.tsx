@@ -26,7 +26,7 @@ const Billboard = ({ billboards }: BillboardProps) => {
           <div
             key={billboard.id}
             style={{ backgroundImage: `url(${billboard?.imageUrl})` }}
-            className="relative aspect-[3/2] overflow-hidden rounded-xl bg-cover md:aspect-[2.4/1]"
+            className="relative aspect-[3/2] overflow-hidden rounded-xl bg-cover md:aspect-[24/9]"
           >
             <Image
               key={billboard.id}
