@@ -9,6 +9,11 @@ export interface Product {
   images: Image[]
 }
 
+export interface CategoryProducts {
+  count: number
+  products: Product[]
+}
+
 export interface Image {
   id: string
   url: string

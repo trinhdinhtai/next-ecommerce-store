@@ -32,12 +32,12 @@ export default async function CategoryIdPage({
       ? (parseInt(page) - 1) * limit
       : defaultPagination.currentPage
 
-  const products = await getCategoryProducts({
+  const { count, products } = await getCategoryProducts({
     limit,
     offset,
   })
 
-  const pageCount = Math.ceil(products.length / limit)
+  const pageCount = Math.ceil(count / limit)
 
   return (
     <Shell>

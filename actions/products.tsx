@@ -1,4 +1,4 @@
-import { Product } from "@/types"
+import { CategoryProducts, Product } from "@/types"
 import axios from "axios"
 import qs from "query-string"
 
@@ -64,7 +64,7 @@ const getCategoryProducts = async ({
   offset?: number
   reverse?: boolean
   sortKey?: string
-}): Promise<Product[]> => {
+}): Promise<CategoryProducts> => {
   const url = qs.stringifyUrl({
     url: URL,
     query: {

@@ -3,12 +3,7 @@
 import { useSearchParams } from "next/navigation"
 import { Product } from "@/types"
 
-import {
-  DEFAULT_PAGE_PARAM,
-  defaultPage,
-  defaultSort,
-  sortOptions,
-} from "@/lib/constants"
+import { defaultPage, defaultSort, sortOptions } from "@/lib/constants"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
