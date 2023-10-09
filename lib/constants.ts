@@ -44,3 +44,5 @@ export const defaultPagination = {
   currentPage: 0,
   pageSize: 8,
 }
+
+export const defaultPage = "1"

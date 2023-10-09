@@ -2,6 +2,7 @@
 
 import { useMemo } from "react"
 
+import { defaultPage } from "@/lib/constants"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/Icons"
@@ -58,11 +59,21 @@ export default function PaginationButton({
       )}
       {...props}
     >
-      <Button variant="outline" size="icon" className="hidden h-8 w-8 lg:flex">
+      <Button
+        variant="outline"
+        size="icon"
+        className="hidden h-8 w-8 lg:flex"
+        disabled={Number(page) === Number(defaultPage)}
+      >
         <Icons.doubleChevronLeft className="h-4 w-4" aria-hidden="true" />
       </Button>
 
-      <Button variant="outline" size="icon" className="hidden h-8 w-8 lg:flex">
+      <Button
+        variant="outline"
+        size="icon"
+        className="hidden h-8 w-8 lg:flex"
+        disabled={Number(page) === Number(defaultPage)}
+      >
         <Icons.chevronLeft className="h-4 w-4" aria-hidden="true" />
       </Button>
 
@@ -89,11 +100,21 @@ export default function PaginationButton({
         )
       )}
 
-      <Button variant="outline" size="icon" className="hidden h-8 w-8 lg:flex">
+      <Button
+        variant="outline"
+        size="icon"
+        className="hidden h-8 w-8 lg:flex"
+        disabled={Number(page) === (pageCount ?? 10)}
+      >
         <Icons.chevronRight className="h-4 w-4" aria-hidden="true" />
       </Button>
 
-      <Button variant="outline" size="icon" className="hidden h-8 w-8 lg:flex">
+      <Button
+        variant="outline"
+        size="icon"
+        className="hidden h-8 w-8 lg:flex"
+        disabled={Number(page) === (pageCount ?? 10)}
+      >
         <Icons.doubleChevronRight className="h-4 w-4" aria-hidden="true" />
       </Button>
     </div>

@@ -3,7 +3,12 @@
 import { useSearchParams } from "next/navigation"
 import { Product } from "@/types"
 
-import { defaultSort, sortOptions } from "@/lib/constants"
+import {
+  DEFAULT_PAGE_PARAM,
+  defaultPage,
+  defaultSort,
+  sortOptions,
+} from "@/lib/constants"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -40,7 +45,9 @@ export default function Products({
 }: ProductsProps) {
   const searchParams = useSearchParams()
 
-  const sort = searchParams?.get("sort") || defaultSort.slug
+  // Search params
+  const page = searchParams?.get("page") ?? defaultPage
+  const sort = searchParams?.get("sort") ?? defaultSort.slug
 
   return (
     <section className="flex flex-col space-y-6" {...props}>
@@ -100,7 +107,9 @@ export default function Products({
         ))}
       </div>
 
-      {products.length ? <PaginationButton pageCount={pageCount} /> : null}
+      {products.length ? (
+        <PaginationButton pageCount={pageCount} page={page} />
+      ) : null}
     </section>
   )
 }
