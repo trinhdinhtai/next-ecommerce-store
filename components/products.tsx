@@ -25,6 +25,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Icons } from "@/components/Icons"
+import PaginationButton from "@/components/pagination-button"
 import ProductCard from "@/components/product/product-card"
 
 interface ProductsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -93,6 +94,8 @@ export default function Products({ products, ...props }: ProductsProps) {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+
+      {products.length ? <PaginationButton pageCount={10} /> : null}
     </section>
   )
 }
