@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Category } from "@/types"
+import slugify from "slugify"
 
 import { Card } from "@/components/ui/card"
 
@@ -10,7 +11,7 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
-    <Link href={`/categories/${category.id}`}>
+    <Link href={`/categories/${slugify(category.name)}`}>
       <Card className="flex flex-col items-center gap-2 overflow-hidden rounded-md bg-transparent p-6">
         <div className="group relative aspect-square w-20">
           <Image

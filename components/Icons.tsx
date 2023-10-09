@@ -1,5 +1,6 @@
-import { Image } from "lucide-react"
+import { ChevronDown, Image } from "lucide-react"
 
 export const Icons = {
   placeholder: Image,
+  chevronDown: ChevronDown,
 }

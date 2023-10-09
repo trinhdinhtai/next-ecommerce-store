@@ -52,8 +52,26 @@ const getProductById = async (id: string): Promise<Product> => {
   return res.json()
 }
 
+const getCategoryProducts = async ({
+  reverse,
+  sortKey,
+}: {
+  reverse?: boolean
+  sortKey?: string
+}): Promise<Product[]> => {
+  const url = qs.stringifyUrl({
+    url: URL,
+    query: {},
+  })
+
+  const response = await axios.get(url)
+
+  return response.data
+}
+
 export {
   getProductsAction as getProducts,
   getProductById,
   getProductRecommendations,
+  getCategoryProducts,
 }
