@@ -46,13 +46,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
       onClick={handleClick}
       className="group flex cursor-pointer flex-col gap-4 rounded-xl border p-3"
     >
-      <div className="relative aspect-square rounded-xl">
+      <div className="relative aspect-square rounded-xl lg:aspect-[4/3]">
         {product?.images?.length ? (
           <Image
             src={product?.images?.[0]?.url}
             alt={product.name}
             fill
-            className="aspect-square rounded-lg object-cover transition group-hover:scale-105"
+            className="aspect-square rounded-lg object-cover transition group-hover:scale-105 "
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center rounded-lg bg-secondary/30">
@@ -83,9 +83,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </div>
 
       {/* Description */}
-      <div>
-        <p className="line-clamp-2 text-lg font-semibold">{product.name}</p>
-        <p className="text-sm text-gray-500">{product.category?.name}</p>
+      <div className="space-y-2">
+        <p className="line-clamp-2 font-semibold leading-none tracking-tight">
+          {product.name}
+        </p>
+        <p className="line-clamp-2 text-sm text-muted-foreground">
+          {product.category?.name}
+        </p>
       </div>
 
       {/* Price & Review */}
