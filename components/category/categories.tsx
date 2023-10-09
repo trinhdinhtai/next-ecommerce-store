@@ -3,6 +3,7 @@
 import { Category } from "@/types"
 
 import SectionHeading from "@/components/ui/section-heading"
+import { Shell } from "@/components/ui/shell"
 import CategoryCard from "@/components/category/category-card"
 
 interface CategoriesProps {
@@ -11,7 +12,7 @@ interface CategoriesProps {
 
 const Categories = ({ categories }: CategoriesProps) => {
   return (
-    <>
+    <Shell>
       <SectionHeading title="Categories" />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
@@ -19,7 +20,7 @@ const Categories = ({ categories }: CategoriesProps) => {
           <CategoryCard key={category.id} category={category} />
         ))}
       </div>
-    </>
+    </Shell>
   )
 }
 

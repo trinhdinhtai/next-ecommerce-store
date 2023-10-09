@@ -1,6 +1,7 @@
 import { Product } from "@/types"
 
 import SectionHeading from "@/components/ui/section-heading"
+import { Shell } from "@/components/ui/shell"
 import ProductCard from "@/components/product/product-card"
 
 import NoResults from "../no-results"
@@ -11,7 +12,7 @@ interface ProductListProps {
 
 const Products = ({ products }: ProductListProps) => {
   return (
-    <>
+    <Shell>
       <SectionHeading title="New Products" />
       <div className="flex flex-col gap-y-8">
         <div className="space-y-4">
@@ -26,7 +27,7 @@ const Products = ({ products }: ProductListProps) => {
           )}
         </div>
       </div>
-    </>
+    </Shell>
   )
 }
 
