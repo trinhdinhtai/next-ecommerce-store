@@ -19,6 +19,7 @@ export default async function CategoryIdPage({
   params,
   searchParams,
 }: CategoryIdPageProps) {
+  const { categoryName } = params
   const { page, per_page, sort } = searchParams as { [key: string]: string }
   const { sortKey, reverse } =
     sortOptions.find((item) => item.slug === sort) || defaultSort
@@ -35,6 +36,7 @@ export default async function CategoryIdPage({
   const { count, products } = await getCategoryProducts({
     limit,
     offset,
+    categories: categoryName,
   })
 
   const pageCount = Math.ceil(count / limit)
@@ -44,7 +46,7 @@ export default async function CategoryIdPage({
       <PageHeader>
         <PageHeaderHeading size="sm">Category</PageHeaderHeading>
         <PageHeaderDescription size="sm">
-          {`Buy ${toTitleCase(params.categoryName)} from the best stores`}
+          {`Buy ${toTitleCase(categoryName)} from the best stores`}
         </PageHeaderDescription>
       </PageHeader>
 

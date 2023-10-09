@@ -57,19 +57,24 @@ const getProductById = async (id: string): Promise<Product> => {
 const getCategoryProducts = async ({
   limit = defaultPagination.pageSize,
   offset = defaultPagination.currentPage,
+  categories,
   reverse,
   sortKey,
 }: {
   limit?: number
   offset?: number
+  categories?: string
   reverse?: boolean
   sortKey?: string
 }): Promise<CategoryProducts> => {
+  const targetCategories = categories?.split(".")
+
   const url = qs.stringifyUrl({
     url: URL,
     query: {
       limit,
       offset,
+      categories: targetCategories,
     },
   })
 
