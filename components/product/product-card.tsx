@@ -53,19 +53,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
           className="aspect-square rounded-md object-cover transition group-hover:scale-105"
         />
         <div className="absolute right-2 top-2 translate-x-2/4 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100">
-          <div className="flex flex-col justify-center gap-2">
+          <div className="flex flex-col justify-center gap-2 text-muted-foreground">
             <IconButton
               onClick={handleProductPreview}
-              icon={<Expand size={18} className="text-gray-600" />}
+              icon={<Expand size={18} />}
             />
             <IconButton
               onClick={handleAddToCart}
-              icon={<ShoppingCart size={18} className="text-gray-600" />}
+              icon={<ShoppingCart size={18} />}
             />
 
             <IconButton
               onClick={handleAddToWishlist}
-              icon={<Heart size={18} className="text-gray-600" />}
+              icon={<Heart size={18} />}
             />
           </div>
         </div>
