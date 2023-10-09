@@ -12,6 +12,7 @@ import ModalProvider from "@/components/providers/modal-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import ToasterProvider from "@/components/providers/toaster-provider"
 import ScrollToTopButton from "@/components/scroll-to-top-button"
+import { TailwindIndicator } from "@/components/tailwind-indicator"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,6 +46,7 @@ export default function RootLayout({
           </Suspense>
           <Footer />
           <ScrollToTopButton />
+          <TailwindIndicator />
         </ThemeProvider>
       </body>
     </html>

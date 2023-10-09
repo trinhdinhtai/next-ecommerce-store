@@ -1,3 +1,5 @@
+"use client"
+
 import { Category } from "@/types"
 
 import SectionHeading from "@/components/ui/section-heading"
@@ -11,12 +13,11 @@ const Categories = ({ categories }: CategoriesProps) => {
   return (
     <>
       <SectionHeading title="Categories" />
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex w-full gap-6 overflow-x-auto py-2">
-          {categories?.map((category) => (
-            <CategoryCard key={category.id} category={category} />
-          ))}
-        </div>
+
+      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 sm:p-6 md:grid-cols-3 lg:grid-cols-4 lg:p-8">
+        {categories.map((category) => (
+          <CategoryCard key={category.id} category={category} />
+        ))}
       </div>
     </>
   )

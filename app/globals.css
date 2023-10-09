@@ -172,3 +172,16 @@ div::-webkit-scrollbar {
   }
 }
 /* PRODUCT DETAILS CAROUSEL STYLING CUSTOMIZATION END */
+
+.slick-prev::before,
+.slick-next::before {
+  color: hsl(var(--primary)) !important;
+}
+
+.carousel-container .slick-slide {
+  margin-right: 20px; /* Adjust the margin as needed */
+}
+
+.carousel-container .slick-slide:last-child {
+  margin-right: 0;
+}

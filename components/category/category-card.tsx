@@ -1,5 +1,8 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Category } from "@/types"
+
+import { Card } from "@/components/ui/card"
 
 interface CategoryCardProps {
   category: Category
@@ -7,20 +10,25 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
-    <div className="min-w-[350px] rounded-lg border p-6">
-      <div className="flex w-full gap-6">
-        <div className="aspect-square w-14 rounded-sm border border-[#cccccc] bg-gray-100"></div>
-        <div className="flex flex-1 flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <h4 className="font-semibold">{category.name}</h4>
-            <span className="text-xs text-muted-foreground">(53)</span>
-          </div>
-          <Link href={`categories/${category.id}`} className="text-sm">
-            Show All
-          </Link>
+    <Link href={`/categories/${category.id}`}>
+      <Card className="flex flex-col items-center gap-2 overflow-hidden rounded-md bg-transparent p-6">
+        <div className="group relative aspect-square w-20">
+          <Image
+            src={category.imageUrl}
+            alt={`${category.name} category`}
+            className="rounded-full border object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+            sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
+            fill
+            loading="lazy"
+          />
         </div>
-      </div>
-    </div>
+
+        <h4 className="text-lg font-semibold capitalize">{category.name}</h4>
+        <span className="text-sm text-muted-foreground">
+          {category._count.products} Products
+        </span>
+      </Card>
+    </Link>
   )
 }
 

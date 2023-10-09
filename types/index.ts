@@ -23,6 +23,10 @@ export interface Billboard {
 export interface Category {
   id: string
   name: string
+  imageUrl: string
+  _count: {
+    products: number
+  }
 }
 
 export interface Size {
