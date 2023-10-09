@@ -39,3 +39,8 @@ export const sortOptions: SortFilterItem[] = [
     reverse: true,
   },
 ]
+
+export const defaultPagination = {
+  currentPage: 0,
+  pageSize: 8,
+}

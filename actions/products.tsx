@@ -2,6 +2,8 @@ import { Product } from "@/types"
 import axios from "axios"
 import qs from "query-string"
 
+import { defaultPagination } from "@/lib/constants"
+
 const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`
 
 interface Query {
@@ -53,15 +55,22 @@ const getProductById = async (id: string): Promise<Product> => {
 }
 
 const getCategoryProducts = async ({
+  limit = defaultPagination.pageSize,
+  offset = defaultPagination.currentPage,
   reverse,
   sortKey,
 }: {
+  limit?: number
+  offset?: number
   reverse?: boolean
   sortKey?: string
 }): Promise<Product[]> => {
   const url = qs.stringifyUrl({
     url: URL,
-    query: {},
+    query: {
+      limit,
+      offset,
+    },
   })
 
   const response = await axios.get(url)

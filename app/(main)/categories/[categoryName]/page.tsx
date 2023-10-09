@@ -1,6 +1,6 @@
 import { getCategoryProducts } from "@/actions/products"
 
-import { defaultSort, sortOptions } from "@/lib/constants"
+import { defaultPagination, defaultSort, sortOptions } from "@/lib/constants"
 import { toTitleCase } from "@/lib/url"
 import { Shell } from "@/components/ui/shell"
 import {
@@ -19,11 +19,25 @@ export default async function CategoryIdPage({
   params,
   searchParams,
 }: CategoryIdPageProps) {
-  const { colorId, sizeId, sort } = searchParams as { [key: string]: string }
+  const { page, per_page, sort } = searchParams as { [key: string]: string }
   const { sortKey, reverse } =
     sortOptions.find((item) => item.slug === sort) || defaultSort
 
-  const products = await getCategoryProducts({})
+  const limit =
+    typeof per_page === "string"
+      ? parseInt(per_page)
+      : defaultPagination.pageSize
+  const offset =
+    typeof page === "string"
+      ? (parseInt(page) - 1) * limit
+      : defaultPagination.currentPage
+
+  const products = await getCategoryProducts({
+    limit,
+    offset,
+  })
+
+  const pageCount = Math.ceil(products.length / limit)
 
   return (
     <Shell>
@@ -34,7 +48,7 @@ export default async function CategoryIdPage({
         </PageHeaderDescription>
       </PageHeader>
 
-      <Products products={products} />
+      <Products products={products} pageCount={pageCount} />
     </Shell>
   )
 }

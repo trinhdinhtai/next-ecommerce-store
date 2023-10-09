@@ -30,9 +30,14 @@ import ProductCard from "@/components/product/product-card"
 
 interface ProductsProps extends React.HTMLAttributes<HTMLDivElement> {
   products: Product[]
+  pageCount: number
 }
 
-export default function Products({ products, ...props }: ProductsProps) {
+export default function Products({
+  products,
+  pageCount,
+  ...props
+}: ProductsProps) {
   const searchParams = useSearchParams()
 
   const sort = searchParams?.get("sort") || defaultSort.slug
@@ -95,7 +100,7 @@ export default function Products({ products, ...props }: ProductsProps) {
         ))}
       </div>
 
-      {products.length ? <PaginationButton pageCount={10} /> : null}
+      {products.length ? <PaginationButton pageCount={pageCount} /> : null}
     </section>
   )
 }
