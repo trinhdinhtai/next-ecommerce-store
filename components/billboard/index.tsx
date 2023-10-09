@@ -13,7 +13,7 @@ interface BillboardProps {
 
 const Billboard = ({ billboards }: BillboardProps) => {
   return (
-    <div className="overflow-hidden p-4 sm:p-6 lg:p-8">
+    <div className="overflow-hidden">
       <Slider
         dots
         infinite
@@ -26,7 +26,7 @@ const Billboard = ({ billboards }: BillboardProps) => {
           <div
             key={billboard.id}
             style={{ backgroundImage: `url(${billboard?.imageUrl})` }}
-            className="relative aspect-[3/2] overflow-hidden rounded-xl bg-cover md:aspect-[24/9]"
+            className="relative aspect-[3/2] overflow-hidden bg-cover md:aspect-[32/9]"
           >
             <Image
               key={billboard.id}

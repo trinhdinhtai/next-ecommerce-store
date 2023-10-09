@@ -11,7 +11,7 @@ interface Query {
   isFeatured?: boolean
 }
 
-const getProducts = async (query: Query): Promise<Product[]> => {
+const getProductsAction = async (query: Query): Promise<Product[]> => {
   const url = qs.stringifyUrl({
     url: URL,
     query: {
@@ -52,4 +52,8 @@ const getProductById = async (id: string): Promise<Product> => {
   return res.json()
 }
 
-export { getProducts, getProductById, getProductRecommendations }
+export {
+  getProductsAction as getProducts,
+  getProductById,
+  getProductRecommendations,
+}
