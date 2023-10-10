@@ -64,6 +64,7 @@ model Product {
   name        String
   description String?
   price       Decimal
+  rating      Int       @default(0)
   inventory   Int       @default(0)
   isArchived  Boolean   @default(false)
   sizeId      String    // Foreign Key to Size
