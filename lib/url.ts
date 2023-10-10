@@ -10,6 +10,6 @@ export const createUrl = (
   return `${pathname}${queryString}`
 }
 
-export function toTitleCase(str: string) {
-  return str.replace(/-/g, " ")
+export function unSlugify(slug: string) {
+  return slug.replace(/-/g, " ")
 }

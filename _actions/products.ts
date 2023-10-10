@@ -6,7 +6,7 @@ import { z } from "zod"
 import { env } from "@/env.mjs"
 import { defaultPagination } from "@/lib/constants"
 import { prisma } from "@/lib/prismadb"
-import { toTitleCase } from "@/lib/url"
+import { unSlugify } from "@/lib/url"
 import { getProductsSchema } from "@/lib/validations/product"
 
 const STORE_ID = env.STORE_ID
@@ -160,9 +160,7 @@ const getCategoryProductsAction = async ({
   offset = defaultPagination.currentPage,
   categories,
 }: z.infer<typeof getProductsSchema>): Promise<CategoryProducts> => {
-  const targetCategories = categories
-    ?.split(".")
-    .map((item) => toTitleCase(item))
+  const targetCategories = categories?.split(".").map((item) => unSlugify(item))
 
   const response = await Promise.all([
     prisma.product.count({

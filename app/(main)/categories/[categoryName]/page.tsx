@@ -1,7 +1,7 @@
 import { getCategoryProductsAction } from "@/_actions/products"
 
 import { defaultPagination, defaultSort, sortOptions } from "@/lib/constants"
-import { toTitleCase } from "@/lib/url"
+import { unSlugify } from "@/lib/url"
 import { Shell } from "@/components/ui/shell"
 import {
   PageHeader,
@@ -46,7 +46,7 @@ export default async function CategoryIdPage({
       <PageHeader>
         <PageHeaderHeading size="sm">Category</PageHeaderHeading>
         <PageHeaderDescription size="sm">
-          {`Buy ${toTitleCase(categoryName)} from the best stores`}
+          {`Buy ${unSlugify(categoryName)} from the best stores`}
         </PageHeaderDescription>
       </PageHeader>
 
