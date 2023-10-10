@@ -1,23 +1,38 @@
 import {
-  Category as DBCategory,
-  Color as DBColor,
-  Image as DBImage,
-  Product as DBProduct,
-  Size as DBSize,
+  Category as ServerCategory,
+  Color as ServerColor,
+  Image as ServerImage,
+  Product as ServerProduct,
+  Size as ServerSize,
 } from "@prisma/client"
 
-export type NewProduct = {
-  id: DBProduct["id"]
-  name: DBProduct["name"]
-  price: DBProduct["price"]
+export type Product = {
+  id: ServerProduct["id"]
+  name: ServerProduct["name"]
+  price: ServerProduct["price"]
   images: Image[]
   category: {
-    id: DBCategory["id"]
-    name: DBCategory["name"]
+    id: ServerCategory["id"]
+    name: ServerCategory["name"]
+  }
+  color: {
+    id: ServerColor["id"]
+    name: ServerColor["name"]
+    value: ServerColor["value"]
+  }
+  size: {
+    id: ServerSize["id"]
+    name: ServerColor["name"]
+    value: ServerColor["value"]
   }
 }
 
-export type ProductDetail = DBProduct & {
+export type CategoryProducts = {
+  count: number
+  products: Product[]
+}
+
+export type ProductDetail = ServerProduct & {
   category: Category
   images?: Image[]
   size: Size
@@ -25,19 +40,19 @@ export type ProductDetail = DBProduct & {
 }
 
 export type RelatedProduct = {
-  id: DBProduct["id"]
-  name: DBProduct["name"]
-  price: DBProduct["price"]
+  id: ServerProduct["id"]
+  name: ServerProduct["name"]
+  price: ServerProduct["price"]
   images: Image[]
   category: {
-    id: DBCategory["id"]
-    name: DBCategory["name"]
+    id: ServerCategory["id"]
+    name: ServerCategory["name"]
   }
 }
 
 export interface Image {
-  id: DBImage["id"]
-  url: DBImage["url"]
+  id: ServerImage["id"]
+  url: ServerImage["url"]
 }
 
 export interface Billboard {
@@ -47,21 +62,24 @@ export interface Billboard {
 }
 
 export interface Category {
-  id: DBCategory["id"]
-  name: DBCategory["name"]
-  imageUrl: DBCategory["imageUrl"]
+  _count: {
+    products: number
+  }
+  id: ServerCategory["id"]
+  name: ServerCategory["name"]
+  imageUrl: ServerCategory["imageUrl"]
 }
 
 export interface Size {
-  id: DBSize["id"]
-  name: DBSize["name"]
-  value: DBSize["value"]
+  id: ServerSize["id"]
+  name: ServerSize["name"]
+  value: ServerSize["value"]
 }
 
 export interface Color {
-  id: DBColor["id"]
-  name: DBColor["name"]
-  value: DBColor["value"]
+  id: ServerColor["id"]
+  name: ServerColor["name"]
+  value: ServerColor["value"]
 }
 
 export interface Cart {

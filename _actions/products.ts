@@ -1,6 +1,6 @@
 "use server"
 
-import { NewProduct, ProductDetail, RelatedProduct } from "@/types"
+import { CategoryProducts, Product } from "@/types"
 import { z } from "zod"
 
 import { env } from "@/env.mjs"
@@ -11,7 +11,7 @@ import { getProductsSchema } from "@/lib/validations/product"
 
 const STORE_ID = env.STORE_ID
 
-const getNewProductsAction = async (): Promise<NewProduct[]> => {
+const getNewProductsAction = async (): Promise<Product[]> => {
   const products = await prisma.product.findMany({
     select: {
       id: true,
@@ -27,6 +27,20 @@ const getNewProductsAction = async (): Promise<NewProduct[]> => {
         select: {
           id: true,
           name: true,
+        },
+      },
+      size: {
+        select: {
+          id: true,
+          name: true,
+          value: true,
+        },
+      },
+      color: {
+        select: {
+          id: true,
+          name: true,
+          value: true,
         },
       },
     },
@@ -45,7 +59,7 @@ const getNewProductsAction = async (): Promise<NewProduct[]> => {
 
 const getProductByIdAction = async (
   productId: string
-): Promise<ProductDetail | null> => {
+): Promise<Product | null> => {
   const product = await prisma.product.findUnique({
     where: {
       id: productId,
@@ -86,7 +100,7 @@ const getProductByIdAction = async (
 
 const getProductRecommendationsAction = async (
   productId: string
-): Promise<RelatedProduct[]> => {
+): Promise<Product[]> => {
   const products = await prisma.product.findMany({
     select: {
       id: true,
@@ -103,6 +117,20 @@ const getProductRecommendationsAction = async (
           id: true,
           name: true,
           imageUrl: true,
+        },
+      },
+      size: {
+        select: {
+          id: true,
+          name: true,
+          value: true,
+        },
+      },
+      color: {
+        select: {
+          id: true,
+          name: true,
+          value: true,
         },
       },
     },
@@ -131,7 +159,7 @@ const getCategoryProductsAction = async ({
   limit = defaultPagination.pageSize,
   offset = defaultPagination.currentPage,
   categories,
-}: z.infer<typeof getProductsSchema>) => {
+}: z.infer<typeof getProductsSchema>): Promise<CategoryProducts> => {
   const targetCategories = categories
     ?.split(".")
     .map((item) => toTitleCase(item))
@@ -160,11 +188,37 @@ const getCategoryProductsAction = async ({
           },
         },
       },
-      include: {
-        images: true,
-        category: true,
-        color: true,
-        size: true,
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        images: {
+          select: {
+            id: true,
+            url: true,
+          },
+        },
+        category: {
+          select: {
+            id: true,
+            name: true,
+            imageUrl: true,
+          },
+        },
+        size: {
+          select: {
+            id: true,
+            name: true,
+            value: true,
+          },
+        },
+        color: {
+          select: {
+            id: true,
+            name: true,
+            value: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
