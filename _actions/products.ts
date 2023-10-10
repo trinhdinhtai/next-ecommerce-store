@@ -160,6 +160,8 @@ const getProductRecommendationsAction = async (
 const getCategoryProductsAction = async ({
   limit = defaultPagination.pageSize,
   offset = defaultPagination.currentPage,
+  sortKey = "createdAt",
+  sortValue = "desc",
   categories,
 }: z.infer<typeof getProductsSchema>): Promise<CategoryProducts> => {
   const targetCategories = categories?.split(".").map((item) => unSlugify(item))
@@ -222,7 +224,7 @@ const getCategoryProductsAction = async ({
         },
       },
       orderBy: {
-        createdAt: "desc",
+        [sortKey]: sortValue,
       },
     }),
   ])

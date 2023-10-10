@@ -5,13 +5,13 @@ import { unSlugify } from "@/lib/url"
 import PriceRangeSlider from "@/components/ui/price-range-slider"
 import { Separator } from "@/components/ui/separator"
 import { Shell } from "@/components/ui/shell"
-import FilterBar from "@/components/FilterBar"
 import {
   PageHeader,
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/page-header"
 import Products from "@/components/products"
+import SortFilterItemList from "@/components/sort-filter-item-list"
 
 interface CategoryIdPageProps {
   params: { categoryName: string }
@@ -24,7 +24,7 @@ export default async function CategoryIdPage({
 }: CategoryIdPageProps) {
   const { categoryName: categorySlug } = params
   const { page, per_page, sort } = searchParams as { [key: string]: string }
-  const { sortKey, reverse } =
+  const { sortKey, value: sortValue } =
     sortOptions.find((item) => item.slug === sort) || defaultSort
 
   const limit =
@@ -39,6 +39,8 @@ export default async function CategoryIdPage({
   const { count, products } = await getCategoryProductsAction({
     limit,
     offset,
+    sortKey,
+    sortValue,
     categories: categorySlug,
   })
 
@@ -65,7 +67,7 @@ export default async function CategoryIdPage({
             </PageHeaderDescription>
           </PageHeader>
 
-          <FilterBar />
+          <SortFilterItemList />
           <Products products={products} pageCount={pageCount} />
         </div>
       </div>
