@@ -1,21 +1,16 @@
-import { getProductRecommendations } from "@/actions/products"
+import { getProductRecommendationsAction } from "@/_actions/products"
 
 import NoResults from "@/components/no-results"
 import ProductCard from "@/components/product/product-card"
 
 type RelatedProductsProps = {
   productId: string
-  categoryId: string
 }
 
 export default async function RelatedProducts({
   productId,
-  categoryId,
 }: RelatedProductsProps) {
-  const relatedProducts = await getProductRecommendations({
-    productId,
-    categoryId,
-  })
+  const relatedProducts = await getProductRecommendationsAction(productId)
 
   return (
     <div className="space-y-4">

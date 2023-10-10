@@ -1,7 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { createCart, getCart } from "@/actions/cart"
+import { createCart, getCart } from "@/_actions/cart"
 import { type z } from "zod"
 
 import { cartItemSchema } from "@/lib/validations/cart"

@@ -4,14 +4,16 @@ import { z } from "zod"
 
 export const env = createEnv({
   server: {
-    NEXT_PUBLIC_API_URL: z.string().url().min(1),
+    DATABASE_URL: z.string().url().min(1),
+    STORE_ID: z.string().min(1),
     SITE_NAME: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url().min(1),
   },
   runtimeEnv: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    DATABASE_URL: process.env.DATABASE_URL,
+    STORE_ID: process.env.STORE_ID,
     SITE_NAME: process.env.SITE_NAME,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },

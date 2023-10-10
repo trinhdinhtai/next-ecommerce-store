@@ -1,4 +1,4 @@
-import { Product } from "@/types"
+import { NewProduct } from "@/types"
 
 import SectionHeading from "@/components/ui/section-heading"
 import ProductCard from "@/components/product/product-card"
@@ -6,7 +6,7 @@ import ProductCard from "@/components/product/product-card"
 import NoResults from "../no-results"
 
 interface ProductListProps {
-  products: Product[]
+  products: NewProduct[]
 }
 
 const Products = ({ products }: ProductListProps) => {

@@ -1,6 +1,6 @@
-import { getBillboards } from "@/actions/billboards"
-import { getCategories } from "@/actions/categories"
-import { getProducts } from "@/actions/products"
+import { getBillboardsAction } from "@/_actions/billboards"
+import { getCategoriesAction } from "@/_actions/categories"
+import { getNewProductsAction } from "@/_actions/products"
 
 import { Shell } from "@/components/ui/shell"
 import Billboard from "@/components/billboard"
@@ -11,9 +11,9 @@ export const revalidate = 0
 
 export default async function HomePage() {
   const responses = await Promise.all([
-    getBillboards(),
-    getCategories(),
-    getProducts({ isFeatured: true }),
+    getBillboardsAction(),
+    getCategoriesAction(),
+    getNewProductsAction(),
   ])
 
   const billboards = responses[0]

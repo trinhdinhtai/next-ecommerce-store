@@ -1,22 +1,43 @@
-export interface Product {
-  id: string
-  category: Category
-  name: string
-  price: string
-  isFeatured: boolean
-  size: Size
-  color: Color
+import {
+  Category as DBCategory,
+  Color as DBColor,
+  Image as DBImage,
+  Product as DBProduct,
+  Size as DBSize,
+} from "@prisma/client"
+
+export type NewProduct = {
+  id: DBProduct["id"]
+  name: DBProduct["name"]
+  price: DBProduct["price"]
   images: Image[]
+  category: {
+    id: DBCategory["id"]
+    name: DBCategory["name"]
+  }
 }
 
-export interface CategoryProducts {
-  count: number
-  products: Product[]
+export type ProductDetail = DBProduct & {
+  category: Category
+  images?: Image[]
+  size: Size
+  color: Color
+}
+
+export type RelatedProduct = {
+  id: DBProduct["id"]
+  name: DBProduct["name"]
+  price: DBProduct["price"]
+  images: Image[]
+  category: {
+    id: DBCategory["id"]
+    name: DBCategory["name"]
+  }
 }
 
 export interface Image {
-  id: string
-  url: string
+  id: DBImage["id"]
+  url: DBImage["url"]
 }
 
 export interface Billboard {
@@ -26,24 +47,21 @@ export interface Billboard {
 }
 
 export interface Category {
-  id: string
-  name: string
-  imageUrl: string
-  _count: {
-    products: number
-  }
+  id: DBCategory["id"]
+  name: DBCategory["name"]
+  imageUrl: DBCategory["imageUrl"]
 }
 
 export interface Size {
-  id: string
-  name: string
-  value: string
+  id: DBSize["id"]
+  name: DBSize["name"]
+  value: DBSize["value"]
 }
 
 export interface Color {
-  id: string
-  name: string
-  value: string
+  id: DBColor["id"]
+  name: DBColor["name"]
+  value: DBColor["value"]
 }
 
 export interface Cart {

@@ -1,4 +1,4 @@
-import { getCategoryProducts } from "@/actions/products"
+import { getCategoryProductsAction } from "@/_actions/products"
 
 import { defaultPagination, defaultSort, sortOptions } from "@/lib/constants"
 import { toTitleCase } from "@/lib/url"
@@ -33,7 +33,7 @@ export default async function CategoryIdPage({
       ? (parseInt(page) - 1) * limit
       : defaultPagination.currentPage
 
-  const { count, products } = await getCategoryProducts({
+  const { count, products } = await getCategoryProductsAction({
     limit,
     offset,
     categories: categoryName,
