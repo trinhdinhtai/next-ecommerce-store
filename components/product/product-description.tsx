@@ -32,7 +32,7 @@ const ProductDescription = ({ product }: ProductDescriptionProps) => {
           />
         </div>
 
-        <StarRating rating={Math.floor(Math.random() * 5 + 1)} />
+        <StarRating rating={product.rating} />
       </div>
 
       <div className="mt-6 flex items-center gap-x-3">

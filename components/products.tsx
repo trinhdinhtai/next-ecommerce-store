@@ -4,7 +4,6 @@ import { useSearchParams } from "next/navigation"
 import { Product } from "@/types"
 
 import { defaultPage, defaultSort, sortOptions } from "@/lib/constants"
-import { cn } from "@/lib/utils"
 import PaginationButton from "@/components/pagination-button"
 import ProductCard from "@/components/product/product-card"
 

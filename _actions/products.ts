@@ -17,6 +17,7 @@ const getNewProductsAction = async (): Promise<Product[]> => {
       id: true,
       name: true,
       price: true,
+      rating: true,
       images: {
         select: {
           id: true,
@@ -106,6 +107,7 @@ const getProductRecommendationsAction = async (
       id: true,
       name: true,
       price: true,
+      rating: true,
       images: {
         select: {
           id: true,
@@ -190,6 +192,7 @@ const getCategoryProductsAction = async ({
         id: true,
         name: true,
         price: true,
+        rating: true,
         images: {
           select: {
             id: true,

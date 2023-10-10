@@ -90,11 +90,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <p className="line-clamp-2 text-sm text-muted-foreground">
           {product.category?.name}
         </p>
+        <StarRating rating={product.rating} />
       </div>
 
       {/* Price & Review */}
-      <div className="mt-auto flex items-center justify-between">
-        <StarRating rating={Math.floor(Math.random() * 5 + 1)} />
+      <div className="mt-auto">
         <Currency value={product?.price} />
       </div>
     </div>

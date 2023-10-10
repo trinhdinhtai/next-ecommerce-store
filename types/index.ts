@@ -10,6 +10,7 @@ export type Product = {
   id: ServerProduct["id"]
   name: ServerProduct["name"]
   price: ServerProduct["price"]
+  rating: ServerProduct["rating"]
   images: Image[]
   category: {
     id: ServerCategory["id"]
