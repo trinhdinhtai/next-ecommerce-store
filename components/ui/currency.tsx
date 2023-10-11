@@ -10,14 +10,16 @@ const formatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 })
 
-interface CurrencyProps {
+interface CurrencyProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string | number | Decimal
   variant?: "default" | "contained"
 }
 
 export default function Currency({
+  className,
   value = 0,
   variant = "default",
+  ...props
 }: CurrencyProps) {
   const [isMounted, setIsMounted] = useState(false)
 
@@ -33,9 +35,10 @@ export default function Currency({
     <div
       className={cn(
         "w-fit font-semibold",
-        variant === "contained" &&
-          "rounded-lg bg-primary px-2 py-1 text-secondary"
+        variant === "contained" && "rounded-lg bg-primary text-secondary",
+        className
       )}
+      {...props}
     >
       {formatter.format(Number(value))}
     </div>

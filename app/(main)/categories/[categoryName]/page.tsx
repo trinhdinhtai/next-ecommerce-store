@@ -23,9 +23,11 @@ export default async function CategoryIdPage({
   searchParams,
 }: CategoryIdPageProps) {
   const { categoryName: categorySlug } = params
-  const { page, per_page, sort } = searchParams as { [key: string]: string }
+  const { page, per_page, sort, price_range } = searchParams as {
+    [key: string]: string
+  }
   const { sortKey, value: sortValue } =
-    sortOptions.find((item) => item.slug === sort) || defaultSort
+    sortOptions.find((item) => item.slug === sort) ?? defaultSort
 
   const limit =
     typeof per_page === "string"
@@ -42,6 +44,7 @@ export default async function CategoryIdPage({
     sortKey,
     sortValue,
     categories: categorySlug,
+    price_range,
   })
 
   const pageCount = Math.ceil(count / limit)

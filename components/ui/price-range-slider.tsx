@@ -1,14 +1,47 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { useDebounce } from "@/hooks/use-debounce"
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
+const MAX_PRICE = 500
+const PRICE_STEP = 1
+
 export default function PriceRangeSlider() {
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500])
-  const debouncedPrice = useDebounce(priceRange, 500)
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, MAX_PRICE])
+  const debouncedPrice = useDebounce(priceRange, MAX_PRICE)
+
+  // Create query string
+  const createQueryString = useCallback(
+    (params: Record<string, string | number | null>) => {
+      const newSearchParams = new URLSearchParams(searchParams?.toString())
+
+      for (const [key, value] of Object.entries(params)) {
+        if (value === null) {
+          newSearchParams.delete(key)
+        } else {
+          newSearchParams.set(key, String(value))
+        }
+      }
+
+      return newSearchParams.toString()
+    },
+    [searchParams]
+  )
+
+  useEffect(() => {
+    const [min, max] = debouncedPrice
+    const queryString = createQueryString({ price_range: `${min}-${max}` })
+    router.push(`${pathname}?${queryString}`, { scroll: false })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedPrice])
 
   return (
     <div className="space-y-4">
@@ -19,9 +52,9 @@ export default function PriceRangeSlider() {
       <Slider
         variant="range"
         thickness="thin"
-        defaultValue={[0, 500]}
-        max={500}
-        step={1}
+        defaultValue={[0, MAX_PRICE]}
+        max={MAX_PRICE}
+        step={PRICE_STEP}
         value={priceRange}
         onValueChange={(value: typeof priceRange) => setPriceRange(value)}
       />
