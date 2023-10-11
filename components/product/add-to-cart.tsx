@@ -3,9 +3,9 @@ import { ShoppingCart } from "lucide-react"
 import { toast } from "sonner"
 
 import { catchError } from "@/lib/utils"
+import LoadingButton from "@/components/loading-button"
 
 import { addToCartAction } from "../cart/actions"
-import { Button } from "../ui/button"
 
 interface AddToCartProps {
   productId: string
@@ -29,15 +29,15 @@ const AddToCard = ({ productId }: AddToCartProps) => {
   }
 
   return (
-    <Button
+    <LoadingButton
       aria-label="Add item to cart"
       onClick={handleAddToCart}
       className="flex items-center gap-x-2"
-      disabled={isPending}
+      isLoading={isPending}
+      icon={<ShoppingCart size={18} />}
     >
       Add To Cart
-      <ShoppingCart size={20} />
-    </Button>
+    </LoadingButton>
   )
 }
 
