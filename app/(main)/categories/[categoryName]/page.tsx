@@ -25,7 +25,7 @@ export default async function CategoryIdPage({
   const { categoryName: categorySlug } = params
   const { page, per_page, sort } = searchParams as { [key: string]: string }
   const { sortKey, value: sortValue } =
-    sortOptions.find((item) => item.slug === sort) || defaultSort
+    sortOptions.find((item) => item.slug === sort) ?? defaultSort
 
   const limit =
     typeof per_page === "string"
