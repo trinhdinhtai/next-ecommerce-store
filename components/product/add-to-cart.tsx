@@ -4,7 +4,7 @@ import { toast } from "sonner"
 
 import { catchError } from "@/lib/utils"
 
-import { addItem } from "../cart/actions"
+import { addToCartAction } from "../cart/actions"
 import { Button } from "../ui/button"
 
 interface AddToCartProps {
@@ -17,7 +17,7 @@ const AddToCard = ({ productId }: AddToCartProps) => {
   const handleAddToCart = () => {
     startTransition(async () => {
       try {
-        await addItem({
+        await addToCartAction({
           productId: productId,
           quantity: 1,
         })
@@ -30,6 +30,7 @@ const AddToCard = ({ productId }: AddToCartProps) => {
 
   return (
     <Button
+      aria-label="Add item to cart"
       onClick={handleAddToCart}
       className="flex items-center gap-x-2"
       disabled={isPending}

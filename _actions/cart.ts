@@ -1,16 +1,61 @@
 import { Cart } from "@/types"
-import axios from "axios"
+import { z } from "zod"
 
-const URL = "https://gm.io.vn/api/cart"
+import { prisma } from "@/lib/prismadb"
+import { cartItemSchema } from "@/lib/validations/cart"
 
-const createCart = async (): Promise<Cart> => {
-  const response = await axios.post(URL)
-  return response.data
+const getCart = async (cartId: string) => {
+  const cart = await prisma.cart.findUnique({
+    where: {
+      id: cartId,
+    },
+    include: {
+      cartItems: true,
+    },
+  })
+  return cart
 }
 
-const getCart = async (cartId: string): Promise<Cart> => {
-  const response = await axios.get(`${URL}/${cartId}`)
-  return response.data
+const createCart = async ({
+  productId,
+  quantity,
+}: z.infer<typeof cartItemSchema>): Promise<Cart> => {
+  const cart = await prisma.cart.create({
+    data: {
+      cartItems: {
+        create: {
+          product: {
+            connect: {
+              id: productId,
+            },
+          },
+          quantity,
+        },
+      },
+    },
+  })
+
+  return cart
 }
 
-export { createCart, getCart }
+const updateCart = async ({
+  cartItemId,
+  quantity,
+}: {
+  cartItemId: string
+  quantity: number
+}) => {
+  const cart = await prisma.cartItem.update({
+    where: {
+      id: cartItemId,
+    },
+    data: {
+      quantity: {
+        increment: quantity,
+      },
+    },
+  })
+  return cart
+}
+
+export { createCart, getCart, updateCart }
