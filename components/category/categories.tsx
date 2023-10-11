@@ -2,8 +2,8 @@
 
 import { Category } from "@/types"
 
-import SectionHeading from "@/components/ui/section-heading"
-import CategoryCard from "@/components/category/category-card"
+import { Card } from "@/components/ui/card"
+import CategoryLink from "@/components/category/category-link"
 
 interface CategoriesProps {
   categories: Category[]
@@ -11,15 +11,11 @@ interface CategoriesProps {
 
 const Categories = ({ categories }: CategoriesProps) => {
   return (
-    <>
-      <SectionHeading title="Categories" />
-
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {categories.map((category) => (
-          <CategoryCard key={category.id} category={category} />
-        ))}
-      </div>
-    </>
+    <Card className="flex flex-col gap-4 p-4">
+      {categories.map((category) => (
+        <CategoryLink key={category.id} category={category} />
+      ))}
+    </Card>
   )
 }
 

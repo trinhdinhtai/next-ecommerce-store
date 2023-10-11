@@ -23,8 +23,15 @@ export default async function HomePage() {
   return (
     <Shell>
       <Billboard billboards={billboards} />
-      <Categories categories={categories} />
-      <Products products={products} />
+      <div className="flex gap-12">
+        <div className="order-first w-full flex-none md:max-w-[225px]">
+          <Categories categories={categories} />
+        </div>
+
+        <div className="flex flex-1 flex-col gap-6">
+          <Products products={products} />
+        </div>
+      </div>
     </Shell>
   )
 }
