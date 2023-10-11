@@ -5,6 +5,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Image,
+  SeparatorVertical,
 } from "lucide-react"
 
 export const Icons = {
@@ -14,4 +15,5 @@ export const Icons = {
   doubleChevronLeft: ChevronsLeft,
   chevronRight: ChevronRight,
   doubleChevronRight: ChevronsRight,
+  separator: SeparatorVertical,
 }

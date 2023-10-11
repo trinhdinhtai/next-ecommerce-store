@@ -19,3 +19,7 @@ export function catchError(err: unknown) {
     return toast("Something went wrong, please try again later.")
   }
 }
+
+export function truncate(str: string, length: number) {
+  return str.length > length ? `${str.substring(0, length)}...` : str
+}
