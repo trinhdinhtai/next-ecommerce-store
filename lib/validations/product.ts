@@ -10,4 +10,9 @@ export const getProductsSchema = z.object({
     .regex(/^\d+.\d+$/)
     .optional()
     .nullable(),
+  price_range: z
+    .string()
+    .regex(/^\d+-\d+$/)
+    .optional()
+    .nullable(),
 })

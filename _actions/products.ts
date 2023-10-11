@@ -163,8 +163,10 @@ const getCategoryProductsAction = async ({
   sortKey = "createdAt",
   sortValue = "desc",
   categories,
+  price_range,
 }: z.infer<typeof getProductsSchema>): Promise<CategoryProducts> => {
   const targetCategories = categories?.split(".").map((item) => unSlugify(item))
+  const [minPrice, maxPrice] = price_range?.split("-") ?? []
 
   const response = await Promise.all([
     prisma.product.count({
@@ -189,6 +191,12 @@ const getCategoryProductsAction = async ({
             in: targetCategories,
           },
         },
+        price: price_range
+          ? {
+              gte: parseFloat(minPrice),
+              lte: parseFloat(maxPrice),
+            }
+          : undefined,
       },
       select: {
         id: true,
