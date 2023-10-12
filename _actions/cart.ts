@@ -24,11 +24,7 @@ const createCart = async ({
     data: {
       cartItems: {
         create: {
-          product: {
-            connect: {
-              id: productId,
-            },
-          },
+          productId,
           quantity,
         },
       },
@@ -38,7 +34,25 @@ const createCart = async ({
   return cart
 }
 
-const updateCart = async ({
+const createCartItem = async ({
+  cartId,
+  productId,
+  quantity,
+}: z.infer<typeof cartItemSchema> & {
+  cartId: string
+}): Promise<Cart> => {
+  const cart = await prisma.cartItem.create({
+    data: {
+      cartId,
+      productId,
+      quantity,
+    },
+  })
+
+  return cart
+}
+
+const updateCartItemQuantity = async ({
   cartItemId,
   quantity,
 }: {
@@ -58,4 +72,4 @@ const updateCart = async ({
   return cart
 }
 
-export { createCart, getCart, updateCart }
+export { getCart, createCart, createCartItem, updateCartItemQuantity }

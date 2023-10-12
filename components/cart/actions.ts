@@ -2,7 +2,12 @@
 
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
-import { createCart, getCart, updateCart } from "@/_actions/cart"
+import {
+  createCart,
+  createCartItem,
+  getCart,
+  updateCartItemQuantity,
+} from "@/_actions/cart"
 import { CartLineItems } from "@/types"
 import { type z } from "zod"
 
@@ -38,10 +43,7 @@ export async function getCartAction(): Promise<CartLineItems> {
       itemCount: 0,
     }
 
-  const itemCount = cart?.cartItems.reduce(
-    (acc, item) => acc + item.quantity,
-    0
-  )
+  const itemCount = cart.cartItems.reduce((acc, item) => acc + item.quantity, 0)
 
   return {
     cartItems: cart.cartItems,
@@ -81,10 +83,14 @@ export const addToCartAction = async ({
     )
 
     if (cartItem) {
-      cart = await updateCart({ cartItemId: cartItem.id, quantity })
+      cart = await updateCartItemQuantity({ cartItemId: cartItem.id, quantity })
       revalidatePath("/")
       return cart
     }
+
+    cart = await createCartItem({ cartId, productId, quantity })
+    revalidatePath("/")
+    return cart
   }
   if (!cartId || !cart) {
     cart = await createCart({ productId, quantity })
