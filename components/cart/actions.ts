@@ -3,10 +3,51 @@
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { createCart, getCart, updateCart } from "@/_actions/cart"
+import { CartLineItems } from "@/types"
 import { type z } from "zod"
 
 import { prisma } from "@/lib/prismadb"
 import { cartItemSchema } from "@/lib/validations/cart"
+
+export async function getCartAction(): Promise<CartLineItems> {
+  const cartId = cookies().get("cartId")?.value
+  if (!cartId)
+    return {
+      cartItems: [],
+      itemCount: 0,
+    }
+
+  const cart = await prisma.cart.findUnique({
+    where: {
+      id: cartId,
+    },
+    select: {
+      cartItems: {
+        select: {
+          id: true,
+          productId: true,
+          quantity: true,
+        },
+      },
+    },
+  })
+
+  if (!cart)
+    return {
+      cartItems: [],
+      itemCount: 0,
+    }
+
+  const itemCount = cart?.cartItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  )
+
+  return {
+    cartItems: cart.cartItems,
+    itemCount,
+  }
+}
 
 export const addToCartAction = async ({
   productId,
