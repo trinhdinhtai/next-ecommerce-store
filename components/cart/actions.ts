@@ -20,6 +20,7 @@ export async function getCartAction(): Promise<CartLineItems> {
     return {
       cartItems: [],
       itemCount: 0,
+      totalAmount: 0,
     }
 
   const cart = await prisma.cart.findUnique({
@@ -31,23 +32,38 @@ export async function getCartAction(): Promise<CartLineItems> {
         select: {
           id: true,
           productId: true,
+          product: {
+            select: {
+              name: true,
+              images: true,
+              price: true,
+            },
+          },
           quantity: true,
         },
       },
     },
   })
 
-  if (!cart)
-    return {
-      cartItems: [],
-      itemCount: 0,
-    }
+  const quantityCount = await prisma.cartItem.aggregate({
+    where: {
+      cartId,
+    },
+    _sum: {
+      quantity: true,
+    },
+  })
 
-  const itemCount = cart.cartItems.reduce((acc, item) => acc + item.quantity, 0)
+  // TODO: Update this to use the cartTotal from the server
+  const totalAmount = cart?.cartItems.reduce(
+    (total, item) => total + item.quantity * Number(item.product.price),
+    0
+  )
 
   return {
-    cartItems: cart.cartItems,
-    itemCount,
+    cartItems: cart?.cartItems ?? [],
+    itemCount: quantityCount._sum.quantity ?? 0,
+    totalAmount: totalAmount ?? 0,
   }
 }
 

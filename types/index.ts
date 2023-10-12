@@ -90,7 +90,15 @@ export interface Cart {
   id: string
 }
 
+export type CartLineItem = z.infer<typeof cartLineItemSchema> & {
+  product: {
+    name: string
+    images: Image[]
+  }
+}
+
 export type CartLineItems = {
-  cartItems: z.infer<typeof cartLineItemSchema>[]
+  cartItems: CartLineItem[]
   itemCount: number
+  totalAmount: number
 }
