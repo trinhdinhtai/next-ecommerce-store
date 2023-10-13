@@ -1,10 +1,13 @@
+import Link from "next/link"
 import { ShoppingCart } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { formatPrice } from "@/lib/formatter"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -38,6 +41,38 @@ export default async function CartButton() {
         {!!itemCount ? (
           <>
             <CartLineItems cartItems={cartItems} className="flex-1" />
+
+            <div className="space-y-4 pr-6">
+              <Separator />
+              <div className="space-y-1.5 text-sm">
+                <div className="flex">
+                  <span className="flex-1">Shipping</span>
+                  <span>Free</span>
+                </div>
+                <div className="flex">
+                  <span className="flex-1">Taxes</span>
+                  <span>Calculated at checkout</span>
+                </div>
+                <div className="flex">
+                  <span className="flex-1">Total</span>
+                  <span>{formatPrice(totalAmount.toFixed(2))}</span>
+                </div>
+              </div>
+              <SheetFooter>
+                <SheetTrigger asChild>
+                  <Link
+                    aria-label="View your cart"
+                    href="/cart"
+                    className={buttonVariants({
+                      size: "sm",
+                      className: "w-full",
+                    })}
+                  >
+                    Continue to checkout
+                  </Link>
+                </SheetTrigger>
+              </SheetFooter>
+            </div>
           </>
         ) : null}
       </SheetContent>

@@ -2,6 +2,7 @@ import Image from "next/image"
 import type { CartLineItem } from "@/types"
 import { Slot } from "@radix-ui/react-slot"
 
+import { formatPrice } from "@/lib/formatter"
 import { cn } from "@/lib/utils"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
@@ -69,6 +70,29 @@ export function CartLineItems({
                   <span className="line-clamp-1 text-sm font-medium">
                     {cartItem.product.name}
                   </span>
+
+                  {isEditable ? (
+                    <span className="line-clamp-1 text-xs text-muted-foreground">
+                      {formatPrice(cartItem.product.price.toNumber())} x{" "}
+                      {cartItem.quantity} ={" "}
+                      {formatPrice(
+                        (
+                          Number(cartItem.product.price) *
+                          Number(cartItem.quantity)
+                        ).toFixed(2)
+                      )}
+                    </span>
+                  ) : (
+                    <span className="line-clamp-1 text-xs text-muted-foreground">
+                      Qty {cartItem.quantity}
+                    </span>
+                  )}
+
+                  {variant === "default" ? (
+                    <span className="line-clamp-1 text-xs capitalize text-muted-foreground">
+                      {`${cartItem.product.category.name}`}
+                    </span>
+                  ) : null}
                 </div>
               </div>
             </div>

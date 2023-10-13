@@ -1,3 +1,4 @@
+import { Server } from "http"
 import {
   Category as ServerCategory,
   Color as ServerColor,
@@ -93,7 +94,11 @@ export interface Cart {
 export type CartLineItem = z.infer<typeof cartLineItemSchema> & {
   product: {
     name: string
+    price: ServerProduct["price"]
     images: Image[]
+    category: {
+      name: string
+    }
   }
 }
 

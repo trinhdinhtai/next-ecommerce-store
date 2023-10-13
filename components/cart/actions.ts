@@ -37,6 +37,11 @@ export async function getCartAction(): Promise<CartLineItems> {
               name: true,
               images: true,
               price: true,
+              category: {
+                select: {
+                  name: true,
+                },
+              },
             },
           },
           quantity: true,
