@@ -5,7 +5,7 @@ export function formatPrice(
     notation?: Intl.NumberFormatOptions["notation"]
   } = {}
 ) {
-  const { currency = "USD", notation = "compact" } = options
+  const { currency = "USD", notation = "standard" } = options
 
   return new Intl.NumberFormat("en-US", {
     style: "currency",
