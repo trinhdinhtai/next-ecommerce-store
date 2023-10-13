@@ -6,6 +6,10 @@ import { CartLineItem } from "@/types"
 import { catchError } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+  decreaseProductCartAction,
+  updateCartItemAction,
+} from "@/components/cart/actions"
 import { Icons } from "@/components/Icons"
 
 interface EditableCartItemProps {
@@ -21,7 +25,7 @@ export default function EditableCartItem({
   const handleDecrement = () => {
     startTransition(async () => {
       try {
-        // TODO: Implement updateCartItemAction
+        await decreaseProductCartAction(cartLineItem.id)
       } catch (err) {
         catchError(err)
       }

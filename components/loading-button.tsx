@@ -31,13 +31,16 @@ const LoadingButton = React.forwardRef<
 
   return (
     <Button
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        "relative px-16"
+      )}
       {...props}
       ref={ref}
       disabled={isLoading}
     >
-      <div className="w-8">
-        {isLoading ? <LoadingDots className="mr-2" /> : icon}
+      <div className="absolute left-4 flex items-center justify-center">
+        {isLoading ? <LoadingDots className="bg-white dark:bg-black" /> : icon}
       </div>
 
       {props.children}

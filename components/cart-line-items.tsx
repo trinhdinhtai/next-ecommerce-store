@@ -38,10 +38,11 @@ export function CartLineItems({
         {...props}
       >
         {cartItems.map((cartItem) => (
-          <div key={cartItem.id} className="space-y-3 px-1 py-4">
+          <div key={cartItem.id} className="space-y-3">
             <div
+              key={cartItem.id}
               className={cn(
-                "flex items-start justify-between gap-4",
+                "flex items-start justify-between gap-4 px-1 py-4",
                 isEditable && "flex-col sm:flex-row"
               )}
             >

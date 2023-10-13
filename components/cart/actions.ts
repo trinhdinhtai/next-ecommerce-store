@@ -124,3 +124,41 @@ export const addToCartAction = async ({
   revalidatePath("/")
   return cart
 }
+
+export const decreaseProductCartAction = async (cartItemId: string) => {
+  let cartId = cookies().get("cartId")?.value
+
+  if (!cartId) {
+    throw new Error("Cart id not found, please try again.")
+  }
+
+  await prisma.cartItem.update({
+    data: {
+      quantity: {
+        decrement: 1,
+      },
+    },
+    where: {
+      id: cartItemId,
+    },
+  })
+
+  revalidatePath("/")
+}
+
+export const updateCartItemAction = async ({
+  cartItemId,
+  quantity,
+}: {
+  cartItemId: string
+  quantity: number
+}) => {
+  // Create cart
+  let cartId = cookies().get("cartId")?.value
+
+  if (!cartId) {
+    throw new Error("Cart id not found, please try again.")
+  }
+
+  const cart = await getCart(cartId)
+}
