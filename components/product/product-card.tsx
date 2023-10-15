@@ -6,7 +6,7 @@ import Link from "next/link"
 import { Product } from "@/types"
 import { Expand, Heart, ShoppingCart } from "lucide-react"
 
-import useCart from "@/hooks/use-cart"
+import useCartItem from "@/hooks/use-cart-item"
 import usePreviewModal from "@/hooks/use-preview-modal"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import IconButton from "@/components/ui/icon-button"
@@ -21,20 +21,16 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const previewModal = usePreviewModal()
-  const cart = useCart()
+  const { handleAddToCart } = useCartItem()
 
   const handleProductPreview = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation()
+    event.preventDefault()
     previewModal.onOpen(product)
   }
 
-  const handleAddToCart = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation()
-    cart.addItem(product)
-  }
-  const handleAddToWishlist = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation()
-    cart.addItem(product)
+  const handleClickAddToCart = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    handleAddToCart(product.id)
   }
 
   return (
@@ -61,17 +57,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <div className="absolute right-2 top-2 translate-x-2/4 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100">
               <div className="flex flex-col justify-center gap-2 text-muted-foreground">
                 <IconButton
-                  onClick={handleProductPreview}
+                  onClick={(event) => handleProductPreview(event)}
                   icon={<Expand size={18} />}
-                />
-                <IconButton
-                  onClick={handleAddToCart}
-                  icon={<ShoppingCart size={18} />}
                 />
 
                 <IconButton
-                  onClick={handleAddToWishlist}
-                  icon={<Heart size={18} />}
+                  onClick={(event) => handleClickAddToCart(event)}
+                  icon={<ShoppingCart size={18} />}
                 />
               </div>
             </div>

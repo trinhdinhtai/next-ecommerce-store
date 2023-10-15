@@ -1,7 +1,9 @@
+import Image from "next/image"
 import Link from "next/link"
 import { ShoppingCart } from "lucide-react"
 
 import { formatPrice } from "@/lib/formatter"
+import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -25,9 +27,15 @@ export default async function CartButton() {
           <ShoppingCart size={24} />
 
           {!!itemCount && (
-            <span className="absolute right-0 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-xs font-medium text-destructive-foreground">
-              {itemCount}
-            </span>
+            <div
+              className={cn(
+                "absolute right-0 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[12px] text-destructive-foreground",
+                itemCount > 9 && "text-[10px]",
+                itemCount > 99 && "text-[8px]"
+              )}
+            >
+              <span>{itemCount > 99 ? "99+" : itemCount}</span>
+            </div>
           )}
         </Button>
       </SheetTrigger>
@@ -74,7 +82,34 @@ export default async function CartButton() {
               </SheetFooter>
             </div>
           </>
-        ) : null}
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center space-y-1">
+            <Image
+              width={300}
+              height={300}
+              src="/cart-empty.png"
+              alt="cart empty"
+            />
+            <div className="text-xl font-medium text-muted-foreground">
+              Your cart is empty
+            </div>
+            <SheetTrigger asChild>
+              <Link
+                aria-label="Add items to your cart to checkout"
+                href="/"
+                className={cn(
+                  buttonVariants({
+                    variant: "link",
+                    size: "sm",
+                    className: "text-sm text-muted-foreground",
+                  })
+                )}
+              >
+                Add items to your cart to checkout
+              </Link>
+            </SheetTrigger>
+          </div>
+        )}
       </SheetContent>
     </Sheet>
   )

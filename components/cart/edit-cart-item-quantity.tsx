@@ -1,51 +1,49 @@
 "use client"
 
-import { useId, useTransition } from "react"
+import { ChangeEvent, useId, useState, useTransition } from "react"
 import { CartLineItem } from "@/types"
 
 import { catchError } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import useCartItem from "@/hooks/use-cart-item"
 import { Input } from "@/components/ui/input"
 import {
-  decreaseProductCartAction,
-  updateCartItemAction,
+  decreaseProductQuantityAction,
+  updateProductQuantityAction,
 } from "@/components/cart/actions"
 import { Icons } from "@/components/Icons"
+import LoadingButton from "@/components/loading-button"
 
 interface EditableCartItemProps {
   cartLineItem: CartLineItem
 }
 
-export default function EditableCartItem({
+export default function EditCartItemQuantity({
   cartLineItem,
 }: EditableCartItemProps) {
   const id = useId()
   const [isPending, startTransition] = useTransition()
+  const { isIncreasePending, handleIncrement } = useCartItem()
 
   const handleDecrement = () => {
     startTransition(async () => {
       try {
-        await decreaseProductCartAction(cartLineItem.id)
+        await decreaseProductQuantityAction(
+          cartLineItem.quantity,
+          cartLineItem.id
+        )
       } catch (err) {
         catchError(err)
       }
     })
   }
 
-  const handleIncrement = () => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     startTransition(async () => {
       try {
-        // TODO: Implement updateCartItemAction
-      } catch (err) {
-        catchError(err)
-      }
-    })
-  }
-
-  const handleInputChange = () => {
-    startTransition(async () => {
-      try {
-        // TODO: Implement updateCartItemAction
+        await updateProductQuantityAction({
+          cartItemId: cartLineItem.id,
+          quantity: Number(event.target.value),
+        })
       } catch (err) {
         catchError(err)
       }
@@ -55,16 +53,16 @@ export default function EditableCartItem({
   return (
     <div className="flex w-full items-center justify-between space-x-2 sm:w-auto sm:justify-normal">
       <div className="flex items-center">
-        <Button
+        <LoadingButton
           id={`${id}-decrement`}
           variant="outline"
           size="icon"
           className="h-8 w-8 rounded-r-none"
+          dotClassName="bg-primary"
           onClick={handleDecrement}
-          disabled={isPending}
-        >
-          <Icons.minus className="h-4 w-4" aria-hidden="true" />
-        </Button>
+          isLoading={isPending}
+          icon={<Icons.minus className="h-4 w-4" />}
+        />
 
         <Input
           id={`${id}-quantity`}
@@ -72,20 +70,20 @@ export default function EditableCartItem({
           min="0"
           className="h-8 w-14 rounded-none border-x-0"
           value={cartLineItem.quantity}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event)}
           disabled={isPending}
         />
 
-        <Button
+        <LoadingButton
           id={`${id}-increment`}
           variant="outline"
           size="icon"
           className="h-8 w-8 rounded-l-none"
-          onClick={handleIncrement}
-          disabled={isPending}
-        >
-          <Icons.plus className="h-3 w-3" aria-hidden="true" />
-        </Button>
+          dotClassName="bg-primary"
+          onClick={() => handleIncrement(cartLineItem.id)}
+          isLoading={isIncreasePending}
+          icon={<Icons.plus className="h-4 w-4" />}
+        />
       </div>
     </div>
   )

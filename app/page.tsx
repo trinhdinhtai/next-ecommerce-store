@@ -23,7 +23,7 @@ export default async function HomePage() {
   return (
     <Shell>
       <Billboard billboards={billboards} />
-      <div className="flex gap-12">
+      <div className="flex flex-col gap-12 md:flex-row">
         <div className="order-first w-full flex-none md:max-w-[225px]">
           <Categories categories={categories} />
         </div>

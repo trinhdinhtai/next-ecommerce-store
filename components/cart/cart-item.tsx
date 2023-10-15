@@ -2,7 +2,7 @@ import Image from "next/image"
 import { Product } from "@/types"
 import { X } from "lucide-react"
 
-import useCart from "@/hooks/use-cart"
+import useCartItem from "@/hooks/use-cart-item"
 import Currency from "@/components/ui/currency"
 import IconButton from "@/components/ui/icon-button"
 
@@ -11,7 +11,7 @@ interface CartItemProps {
 }
 
 const CartItem = ({ data }: CartItemProps) => {
-  const cart = useCart()
+  const cart = useCartItem()
 
   const onRemove = () => {
     cart.removeItem(data.id)

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import DeleteItemButton from "@/components/cart/delete-item-button"
-import EditableCartItem from "@/components/cart/editable-cart-item"
+import EditCartItemQuantity from "@/components/cart/edit-cart-item-quantity"
 import { Icons } from "@/components/Icons"
 
 interface CartLineItemsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -105,7 +105,7 @@ export function CartLineItems({
                 </span>
 
                 {isEditable ? (
-                  <EditableCartItem cartLineItem={cartItem} />
+                  <EditCartItemQuantity cartLineItem={cartItem} />
                 ) : (
                   <div className="flex flex-col space-y-1 font-medium">
                     <span className="ml-auto line-clamp-1 text-sm">

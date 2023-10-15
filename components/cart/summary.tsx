@@ -5,14 +5,14 @@ import { useSearchParams } from "next/navigation"
 import axios from "axios"
 import { toast } from "sonner"
 
-import useCart from "@/hooks/use-cart"
+import useCartItem from "@/hooks/use-cart-item"
 import { Button } from "@/components/ui/button"
 import Currency from "@/components/ui/currency"
 
 const Summary = () => {
   const searchParams = useSearchParams()
-  const items = useCart((state) => state.items)
-  const removeAll = useCart((state) => state.removeAll)
+  const items = useCartItem((state) => state.items)
+  const removeAll = useCartItem((state) => state.removeAll)
 
   useEffect(() => {
     if (searchParams.get("success")) {

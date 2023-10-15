@@ -1,10 +1,11 @@
 "use client"
 
 import { useTransition } from "react"
-import { useRouter } from "next/navigation"
 import { CartLineItem } from "@/types"
 
+import { catchError } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { deleteCartItemAction } from "@/components/cart/actions"
 import { Icons } from "@/components/Icons"
 
 interface DeleteItemButtonProps {
@@ -12,10 +13,17 @@ interface DeleteItemButtonProps {
 }
 
 export default function DeleteItemButton({ cartItem }: DeleteItemButtonProps) {
-  const router = useRouter()
-  const [isPending, startTransition] = useTransition()
+  const [_, startTransition] = useTransition()
 
-  const handleRemoveCartItem = () => {}
+  const handleRemoveCartItem = async () => {
+    startTransition(async () => {
+      try {
+        await deleteCartItemAction(cartItem.id)
+      } catch (err) {
+        catchError(err)
+      }
+    })
+  }
 
   return (
     <Button

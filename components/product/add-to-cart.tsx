@@ -33,6 +33,7 @@ const AddToCard = ({ productId }: AddToCartProps) => {
       aria-label="Add item to cart"
       onClick={handleAddToCart}
       className="flex items-center gap-x-2"
+      dotClassName="bg-background"
       isLoading={isPending}
       icon={<ShoppingCart size={18} />}
     >
