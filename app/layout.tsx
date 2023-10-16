@@ -2,7 +2,6 @@ import { ClerkProvider } from "@clerk/nextjs"
 
 import "./globals.css"
 
-import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
@@ -10,6 +9,7 @@ import { env } from "@/env.mjs"
 import { cn } from "@/lib/utils"
 import ThemeProvider from "@/components/providers/theme-provider"
 import ToasterProvider from "@/components/providers/toaster-provider"
+import TailwindIndicator from "@/components/tailwind-indicator"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -42,9 +42,8 @@ export default function RootLayout({
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ToasterProvider />
-            <Suspense>
-              <main className="flex-1">{children}</main>
-            </Suspense>
+            {children}
+            <TailwindIndicator />
           </ThemeProvider>
         </body>
       </html>
