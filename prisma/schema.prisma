@@ -1,0 +1,191 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Store {
+  id              String    @id @default(uuid())
+  name            String
+  description     String    @default("")
+  userId          String
+  billboards      Billboard[] @relation("StoreToBillboard")
+  categories      Category[] @relation("StoreToCategory")
+  products        Product[]  @relation("StoreToProduct")
+  sizes           Size[]     @relation("StoreToSize")
+  colors          Color[]     @relation("StoreToColor")
+  orders          Order[]     @relation("StoreToOrder")
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+model Billboard {
+  id          String @id @default(uuid())
+  storeId     String
+  store       Store @relation("StoreToBillboard", fields: [storeId], references: [id])
+  label       String
+  imageUrl    String
+  categories  Category[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([storeId])
+}
+
+model Category {
+  id          String      @id @default(uuid())
+  storeId     String      // Foreign Key to Store
+  store       Store       @relation("StoreToCategory", fields: [storeId], references: [id])
+  imageUrl    String
+  billboardId String?      // Foreign Key to Billboard
+  billboard   Billboard?   @relation(fields: [billboardId], references: [id])
+  name        String
+  products    Product[]   @relation("CategoryToProduct")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([storeId])
+  @@index([billboardId])
+}
+
+model Product {
+  id          String    @id @default(uuid())
+  storeId     String    // Foreign Key to Store
+  store       Store     @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId  String    // Foreign Key to Category
+  category    Category  @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  name        String
+  description String?
+  price       Decimal
+  rating      Int       @default(0)
+  inventory   Int       @default(0)
+  isArchived  Boolean   @default(false)
+  sizeId      String    // Foreign Key to Size
+  size        Size      @relation(fields: [sizeId], references: [id])
+  colorId     String    // Foreign Key to Color
+  color       Color     @relation(fields: [colorId], references: [id])
+  images      Image[]   // Relation to Image model
+  orderItems  OrderItem[]   // Relation to Order model
+  cardItems   CartItem[]    // Relation to Cart model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([storeId])
+  @@index([categoryId])
+  @@index([sizeId])
+  @@index([colorId])
+}
+
+model Size {
+  id          String    @id @default(uuid())
+  storeId     String    // Foreign Key to Store
+  store       Store     @relation("StoreToSize", fields: [storeId], references: [id])
+  name        String
+  value       String
+  products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+model Color {
+  id          String   @id @default(uuid())
+  storeId     String   // Foreign Key to Store
+  store       Store    @relation("StoreToColor", fields: [storeId], references: [id])
+  name        String
+  value       String
+  products    Product[] // Relation to Product model
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+model Order {
+  id          String    @id @default(uuid())
+  storeId     String    // Foreign Key to Store
+  store       Store     @relation("StoreToOrder", fields: [storeId], references: [id])
+  orderItems OrderItem[] // Relation to OrderItem model
+  isPaid     Boolean   @default(false)
+  customerId String?    // Foreign Key to Customer
+  customer  Customer?  @relation("CustomerToOrder", fields: [customerId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([storeId])
+  @@index([customerId])
+}
+
+// Intermediary for a many-to-many relationship
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String  // Foreign Key to Order
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String  // Foreign Key to Product
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Customer {
+  id          String    @id @default(uuid())
+  name        String
+  phone       String    @default("")
+  email       String    @default("")
+  address     String    @default("")
+  orders      Order[]   @relation("CustomerToOrder")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Image {
+  id          String   @id @default(uuid())
+  productId   String   // Foreign Key to Product
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String   // URL of the image
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+}
+
+model UserSubscription {
+  id                        String    @id @default(cuid())
+  userId                    String    @unique
+  planType                  PlanType
+  stripeCustomerId          String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId      String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId             String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd    DateTime? @map(name: "stripe_current_period_end")
+}
+
+model Cart {
+  id          String    @id @default(uuid())
+  cartItems   CartItem[] // Relation to CartItem model
+}
+
+model CartItem {
+  id          String    @id @default(uuid())
+  cartId      String    // Foreign Key to Order
+  cart        Cart     @relation(fields: [cartId], references: [id])
+  productId   String    // Foreign Key to Product
+  product     Product   @relation(fields: [productId], references: [id])
+  quantity    Int       @default(1)
+
+  @@index([cartId])
+  @@index([productId])
+}
+
+enum PlanType {
+  user
+  system
+}
