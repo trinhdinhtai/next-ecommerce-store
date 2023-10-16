@@ -102,6 +102,7 @@ export type CartLineItem = z.infer<typeof cartLineItemSchema> & {
 }
 
 export type CartLineItems = {
+  id: string
   cartItems: CartLineItem[]
   itemCount: number
   totalAmount: number

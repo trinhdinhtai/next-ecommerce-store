@@ -14,14 +14,9 @@ import { type z } from "zod"
 import { prisma } from "@/lib/prismadb"
 import { cartItemSchema } from "@/lib/validations/cart"
 
-export async function getCartAction(): Promise<CartLineItems> {
+export async function getCartAction(): Promise<CartLineItems | undefined> {
   const cartId = cookies().get("cartId")?.value
-  if (!cartId)
-    return {
-      cartItems: [],
-      itemCount: 0,
-      totalAmount: 0,
-    }
+  if (!cartId) return undefined
 
   const cart = await prisma.cart.findUnique({
     where: {
@@ -66,6 +61,7 @@ export async function getCartAction(): Promise<CartLineItems> {
   )
 
   return {
+    id: cartId,
     cartItems: cart?.cartItems ?? [],
     itemCount: quantityCount._sum.quantity ?? 0,
     totalAmount: totalAmount ?? 0,

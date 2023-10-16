@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
@@ -13,7 +14,11 @@ import {
 } from "@/components/page-header"
 
 export default async function CartPage() {
-  const { cartItems, itemCount, totalAmount } = await getCartAction()
+  const cartResponse = await getCartAction()
+
+  if (!cartResponse) return notFound()
+
+  const { id, cartItems, itemCount, totalAmount } = cartResponse
 
   return (
     <Shell>
@@ -28,7 +33,11 @@ export default async function CartPage() {
       </PageHeader>
 
       {!!itemCount ? (
-        <CartCheckoutItems cartItems={cartItems} totalAmount={totalAmount} />
+        <CartCheckoutItems
+          cartId={id}
+          cartItems={cartItems}
+          totalAmount={totalAmount}
+        />
       ) : (
         <div className="flex h-full flex-col items-center justify-center space-y-1">
           <Image

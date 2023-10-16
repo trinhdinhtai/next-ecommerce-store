@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import { ShoppingCart } from "lucide-react"
 
 import { formatPrice } from "@/lib/formatter"
@@ -18,7 +19,11 @@ import { CartLineItems } from "@/components/cart-line-items"
 import { getCartAction } from "@/components/cart/actions"
 
 export default async function CartButton() {
-  const { cartItems, itemCount, totalAmount } = await getCartAction()
+  const cartResponse = await getCartAction()
+
+  if (!cartResponse) return notFound()
+
+  const { cartItems, itemCount, totalAmount } = cartResponse
 
   return (
     <Sheet>

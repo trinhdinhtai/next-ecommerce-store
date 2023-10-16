@@ -1,28 +1,24 @@
 "use client"
 
+import Link from "next/link"
 import { CartLineItem } from "@/types"
-import axios from "axios"
 
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/ui/button"
 import Currency from "@/components/ui/currency"
 
 interface SummaryProps extends React.HTMLAttributes<HTMLDivElement> {
+  cartId: string
   cartItems: CartLineItem[]
   totalAmount: number
 }
 
-const Summary = ({ className, cartItems, totalAmount }: SummaryProps) => {
-  const onCheckout = async () => {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
-      {
-        productIds: cartItems.map((item) => item.productId),
-      }
-    )
-
-    window.location = response.data.url
-  }
-
+const Summary = ({
+  className,
+  cartId,
+  cartItems,
+  totalAmount,
+}: SummaryProps) => {
   return (
     <div className={className}>
       <div className="rounded-lg bg-secondary/60 px-4 py-6">
@@ -33,13 +29,16 @@ const Summary = ({ className, cartItems, totalAmount }: SummaryProps) => {
             <Currency value={totalAmount} />
           </div>
         </div>
-        <Button
-          onClick={onCheckout}
-          disabled={cartItems.length === 0}
-          className="mt-6 w-full"
+        <Link
+          href={`/checkout/${cartId}`}
+          className={cn(
+            buttonVariants(),
+            "mt-6 w-full",
+            cartItems.length === 0 && "pointer-events-none cursor-not-allowed"
+          )}
         >
           Checkout
-        </Button>
+        </Link>
       </div>
     </div>
   )

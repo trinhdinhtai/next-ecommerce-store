@@ -7,11 +7,13 @@ import CartItem from "@/components/cart/cart-item"
 import Summary from "@/components/cart/summary"
 
 interface CartCheckoutItemProps {
+  cartId: string
   cartItems: CartLineItem[]
   totalAmount: number
 }
 
 export default function CartCheckoutItems({
+  cartId,
   cartItems,
   totalAmount,
 }: CartCheckoutItemProps) {
@@ -36,6 +38,7 @@ export default function CartCheckoutItems({
       </div>
 
       <Summary
+        cartId={cartId}
         cartItems={cartItems}
         totalAmount={totalAmount}
         className="col-span-2"
