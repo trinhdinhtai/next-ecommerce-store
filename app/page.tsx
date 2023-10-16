@@ -23,7 +23,7 @@ export default async function HomePage() {
   return (
     <Shell>
       <Billboard billboards={billboards} />
-      <div className="flex flex-col gap-12 md:flex-row">
+      {/* <div className="flex flex-col gap-12 md:flex-row">
         <div className="order-first w-full flex-none md:max-w-[225px]">
           <Categories categories={categories} />
         </div>
@@ -31,7 +31,7 @@ export default async function HomePage() {
         <div className="flex flex-1 flex-col gap-6">
           <Products products={products} />
         </div>
-      </div>
+      </div> */}
     </Shell>
   )
 }
