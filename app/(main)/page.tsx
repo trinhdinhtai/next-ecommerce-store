@@ -1,6 +1,13 @@
-import { currentUser } from "@clerk/nextjs"
+import { Shell } from "@/components/ui/shell"
+import Billboard from "@/components/billboards"
+import { getBillboardsAction } from "@/app/_actions/billboard"
 
 export default async function HomePage() {
-  const user = await currentUser()
-  return <div>HomePage</div>
+  const responses = await Promise.all([getBillboardsAction()])
+  const billboards = responses[0]
+  return (
+    <Shell>
+      <Billboard billboards={billboards} />
+    </Shell>
+  )
 }
