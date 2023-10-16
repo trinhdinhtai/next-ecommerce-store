@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prismadb"
 const STORE_ID = env.STORE_ID
 
 export const getNewProductsAction = async (): Promise<Product[]> => {
-  const products = await prisma.product.findMany({
+  const productsResponse = await prisma.product.findMany({
     select: {
       id: true,
       name: true,
@@ -50,6 +50,11 @@ export const getNewProductsAction = async (): Promise<Product[]> => {
     },
     take: 8,
   })
+
+  const products = productsResponse.map((product) => ({
+    ...product,
+    price: Number(product.price),
+  }))
 
   return products
 }

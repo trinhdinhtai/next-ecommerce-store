@@ -9,7 +9,7 @@ import {
 export type Product = {
   id: ServerProduct["id"]
   name: ServerProduct["name"]
-  price: ServerProduct["price"]
+  price: number
   rating: ServerProduct["rating"]
   images: Image[]
   category: {

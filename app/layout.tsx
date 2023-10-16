@@ -7,6 +7,7 @@ import { Inter } from "next/font/google"
 
 import { env } from "@/env.mjs"
 import { cn } from "@/lib/utils"
+import ModalProvider from "@/components/providers/modal-provider"
 import ThemeProvider from "@/components/providers/theme-provider"
 import ToasterProvider from "@/components/providers/toaster-provider"
 import TailwindIndicator from "@/components/tailwind-indicator"
@@ -42,6 +43,7 @@ export default function RootLayout({
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ToasterProvider />
+            <ModalProvider />
             {children}
             <TailwindIndicator />
           </ThemeProvider>
