@@ -63,7 +63,7 @@ export default function CartItem({
 
             {isEditable ? (
               <span className="line-clamp-1 text-xs text-muted-foreground">
-                {formatPrice(cartItem.product.price.toNumber())}
+                {formatPrice(Number(cartItem.product.price))}
               </span>
             ) : (
               <span className="line-clamp-1 text-xs text-muted-foreground">

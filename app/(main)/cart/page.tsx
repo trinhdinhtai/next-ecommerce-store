@@ -1,17 +1,11 @@
-import { Fragment } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-import { formatPrice } from "@/lib/formatter"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Separator } from "@/components/ui/separator"
 import { Shell } from "@/components/ui/shell"
-import { CartLineItems } from "@/components/cart-line-items"
+import CartCheckoutItems from "@/components/cart-checkout-items"
 import { getCartAction } from "@/components/cart/actions"
-import CartItem from "@/components/cart/cart-item"
-import Summary from "@/components/cart/summary"
 import {
   PageHeader,
   PageHeaderDescription,
@@ -34,33 +28,7 @@ export default async function CartPage() {
       </PageHeader>
 
       {!!itemCount ? (
-        <div className="grid grid-cols-6 gap-12">
-          <div className="col-span-4">
-            {cartItems.map((cartItem) => (
-              <Fragment key={cartItem.id}>
-                <div className="flex w-full items-center gap-x-4">
-                  <Checkbox />
-
-                  <CartItem
-                    key={cartItem.id}
-                    cartItem={cartItem}
-                    isEditable={true}
-                    variant="default"
-                    className="flex-1"
-                  />
-                </div>
-
-                <Separator />
-              </Fragment>
-            ))}
-          </div>
-
-          <Summary
-            cartItems={cartItems}
-            totalAmount={totalAmount}
-            className="col-span-2"
-          />
-        </div>
+        <CartCheckoutItems cartItems={cartItems} totalAmount={totalAmount} />
       ) : (
         <div className="flex h-full flex-col items-center justify-center space-y-1">
           <Image
