@@ -19,7 +19,9 @@ export async function POST(
   try {
     const user = await currentUser()
 
-    if (!user?.emailAddresses?.[0]?.emailAddress) {
+    const userEmail = user?.emailAddresses?.[0]?.emailAddress
+
+    if (!userEmail) {
       return new NextResponse("Unauthorized", { status: 401 })
     }
 
@@ -94,6 +96,7 @@ export async function POST(
       },
     })
 
+    // https://stripe.com/docs/api/checkout/sessions/create
     const session = await stripe.checkout.sessions.create({
       line_items,
       mode: "payment",
@@ -101,6 +104,7 @@ export async function POST(
       phone_number_collection: {
         enabled: true,
       },
+      customer_email: userEmail,
       success_url: `${env.NEXT_PUBLIC_APP_URL}/cart?success=1`,
       cancel_url: `${env.NEXT_PUBLIC_APP_URL}/cart?canceled=1`,
       metadata: {
