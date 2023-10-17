@@ -48,7 +48,7 @@ const LoadingButton = React.forwardRef<
         ref={ref}
         disabled={isLoading}
       >
-        {isLoading ? <LoadingDots /> : icon}
+        {isLoading ? <LoadingDots className={dotClassName} /> : icon}
         {props.children}
       </Button>
     )
