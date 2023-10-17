@@ -2,6 +2,7 @@ import Link from "next/link"
 import { User } from "@clerk/nextjs/server"
 
 import { buttonVariants } from "@/components/ui/button"
+import CartButton from "@/components/cart-button"
 import UserButton from "@/components/layout/navbar/user-button"
 import { ThemeToggle } from "@/components/theme-toggle"
 
@@ -14,8 +15,10 @@ export default function NavbarActions({ user }: NavbarActionsProps) {
     <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
       <ThemeToggle />
 
+      <CartButton />
+
       {user ? (
-        <UserButton user={user}/>
+        <UserButton user={user} />
       ) : (
         <Link
           href="/sign-in"

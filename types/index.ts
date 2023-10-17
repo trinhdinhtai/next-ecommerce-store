@@ -5,6 +5,9 @@ import {
   Product as ServerProduct,
   Size as ServerSize,
 } from "@prisma/client"
+import { z } from "zod"
+
+import { cartLineItemSchema } from "@/lib/validations/cart"
 
 export type Product = {
   id: ServerProduct["id"]
@@ -85,4 +88,22 @@ export interface Color {
 
 export interface Cart {
   id: string
+}
+
+export type CartLineItem = z.infer<typeof cartLineItemSchema> & {
+  product: {
+    name: string
+    price: ServerProduct["price"]
+    images: Image[]
+    category: {
+      name: string
+    }
+  }
+}
+
+export type CartLineItems = {
+  id: string
+  cartItems: CartLineItem[]
+  itemCount: number
+  totalAmount: number
 }

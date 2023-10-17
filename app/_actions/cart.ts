@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
-import { Cart } from "@/types"
+import { Cart, CartLineItems } from "@/types"
 import { z } from "zod"
 
 import { prisma } from "@/lib/prismadb"
@@ -74,6 +74,60 @@ const updateCartItemQuantity = async ({
     },
   })
   return cart
+}
+
+export async function getCartAction(): Promise<CartLineItems | undefined> {
+  const cartId = cookies().get("cartId")?.value
+  if (!cartId) return undefined
+
+  const cart = await prisma.cart.findUnique({
+    where: {
+      id: cartId,
+    },
+    select: {
+      cartItems: {
+        select: {
+          id: true,
+          productId: true,
+          product: {
+            select: {
+              name: true,
+              images: true,
+              price: true,
+              category: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+          quantity: true,
+        },
+      },
+    },
+  })
+
+  const quantityCount = await prisma.cartItem.aggregate({
+    where: {
+      cartId,
+    },
+    _sum: {
+      quantity: true,
+    },
+  })
+
+  // TODO: Update this to use the cartTotal from the server
+  const totalAmount = cart?.cartItems.reduce(
+    (total, item) => total + item.quantity * Number(item.product.price),
+    0
+  )
+
+  return {
+    id: cartId,
+    cartItems: cart?.cartItems ?? [],
+    itemCount: quantityCount._sum.quantity ?? 0,
+    totalAmount: totalAmount ?? 0,
+  }
 }
 
 export const addToCartAction = async ({
