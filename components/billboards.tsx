@@ -34,6 +34,7 @@ export default function Billboards({ billboards }: BillboardsProps) {
               fill
               alt="billboard"
               className="z-10 object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
         ))}

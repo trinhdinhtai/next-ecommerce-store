@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Product } from "@/types"
 import { Expand, LucideImage, ShoppingCart } from "lucide-react"
 
+import useCartItem from "@/hooks/use-cart-item"
 import usePreviewModal from "@/hooks/use-preview-modal"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import Currency from "@/components/ui/currency"
@@ -18,7 +19,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const previewModal = usePreviewModal()
-  const handleAddToCart = (productId: string) => {}
+  const { handleAddToCart } = useCartItem()
 
   const handleProductPreview = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -40,7 +41,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 src={product?.images?.[0]?.url}
                 alt={product.name}
                 fill
-                className="aspect-square rounded-lg object-cover transition group-hover:scale-105 "
+                className="aspect-square rounded-lg object-cover transition group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center rounded-lg bg-secondary/30">
