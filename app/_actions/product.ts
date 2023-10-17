@@ -1,9 +1,13 @@
 "use server"
 
-import { Product } from "@/types"
+import { CategoryProducts, Product } from "@/types"
+import { z } from "zod"
 
 import { env } from "@/env.mjs"
+import { defaultPagination } from "@/lib/constants"
 import { prisma } from "@/lib/prismadb"
+import { unSlugify } from "@/lib/url"
+import { getProductsSchema } from "@/lib/validations/product"
 
 const STORE_ID = env.STORE_ID
 
@@ -163,4 +167,94 @@ export const getProductRecommendationsAction = async (
   }))
 
   return products
+}
+
+export const getCategoryProductsAction = async ({
+  limit = defaultPagination.pageSize,
+  offset = defaultPagination.currentPage,
+  sortKey = "createdAt",
+  sortValue = "desc",
+  categories,
+  price_range,
+}: z.infer<typeof getProductsSchema>): Promise<CategoryProducts> => {
+  const targetCategories = categories?.split(".").map((item) => unSlugify(item))
+  const [minPrice, maxPrice] = price_range?.split("-") ?? []
+
+  const response = await Promise.all([
+    prisma.product.count({
+      where: {
+        storeId: STORE_ID,
+        isArchived: false,
+        category: {
+          name: {
+            in: targetCategories,
+          },
+        },
+      },
+    }),
+    await prisma.product.findMany({
+      skip: offset,
+      take: limit,
+      where: {
+        storeId: STORE_ID,
+        isArchived: false,
+        category: {
+          name: {
+            in: targetCategories,
+          },
+        },
+        price: price_range
+          ? {
+              gte: parseFloat(minPrice),
+              lte: parseFloat(maxPrice),
+            }
+          : undefined,
+      },
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        rating: true,
+        images: {
+          select: {
+            id: true,
+            url: true,
+          },
+        },
+        category: {
+          select: {
+            id: true,
+            name: true,
+            imageUrl: true,
+          },
+        },
+        size: {
+          select: {
+            id: true,
+            name: true,
+            value: true,
+          },
+        },
+        color: {
+          select: {
+            id: true,
+            name: true,
+            value: true,
+          },
+        },
+      },
+      orderBy: {
+        [sortKey]: sortValue,
+      },
+    }),
+  ])
+
+  const [count, products] = response
+
+  const formattedProducts = products.map((product) => ({
+    ...product,
+    price: Number(product.price),
+  }))
+
+  return { count, products: formattedProducts }
 }
