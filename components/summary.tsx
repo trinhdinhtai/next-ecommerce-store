@@ -1,5 +1,3 @@
-"use client"
-
 import Link from "next/link"
 import { CartLineItem } from "@/types"
 
@@ -8,17 +6,11 @@ import { buttonVariants } from "@/components/ui/button"
 import Currency from "@/components/ui/currency"
 
 interface SummaryProps extends React.HTMLAttributes<HTMLDivElement> {
-  cartId: string
   cartItems: CartLineItem[]
   totalAmount: number
 }
 
-const Summary = ({
-  className,
-  cartId,
-  cartItems,
-  totalAmount,
-}: SummaryProps) => {
+const Summary = ({ className, cartItems, totalAmount }: SummaryProps) => {
   return (
     <div className={className}>
       <div className="rounded-lg bg-secondary/60 px-4 py-6">
@@ -30,7 +22,7 @@ const Summary = ({
           </div>
         </div>
         <Link
-          href={`/checkout/${cartId}`}
+          href={`/checkout`}
           className={cn(
             buttonVariants(),
             "mt-6 w-full",

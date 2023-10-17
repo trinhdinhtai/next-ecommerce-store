@@ -3,9 +3,7 @@ import { currentUser } from "@clerk/nextjs"
 
 export default async function CheckoutLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: React.PropsWithChildren) {
   const user = await currentUser()
 
   if (!user) {

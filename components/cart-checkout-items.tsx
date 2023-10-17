@@ -38,7 +38,6 @@ export default function CartCheckoutItems({
       </div>
 
       <Summary
-        cartId={cartId}
         cartItems={cartItems}
         totalAmount={totalAmount}
         className="col-span-2"
