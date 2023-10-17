@@ -48,7 +48,7 @@ export default async function CartButton() {
           <Separator />
         </SheetHeader>
 
-        {cartItems ? (
+        {cartItems?.length ? (
           <>
             <CartLineItems cartItems={cartItems} className="flex-1" />
 

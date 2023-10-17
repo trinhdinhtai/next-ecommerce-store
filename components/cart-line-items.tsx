@@ -1,4 +1,9 @@
 import { CartLineItem } from "@/types"
+import { Slot } from "@radix-ui/react-slot"
+
+import { cn } from "@/lib/utils"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import CartItem from "@/components/cart-item"
 
 interface CartLineItemsProps extends React.HTMLAttributes<HTMLDivElement> {
   cartItems: CartLineItem[]
@@ -15,5 +20,23 @@ export default function CartLineItems({
   className,
   ...props
 }: CartLineItemsProps) {
-  return <div>CartLineItems</div>
+  const Wrapper = isScrollable ? ScrollArea : Slot
+
+  return (
+    <Wrapper className={cn(className, "h-full")}>
+      <div
+        className={cn("flex w-full flex-col gap-5", isScrollable && "pr-6")}
+        {...props}
+      >
+        {cartItems.map((cartItem) => (
+          <CartItem
+            key={cartItem.id}
+            cartItem={cartItem}
+            isEditable={isEditable}
+            variant={variant}
+          />
+        ))}
+      </div>
+    </Wrapper>
+  )
 }

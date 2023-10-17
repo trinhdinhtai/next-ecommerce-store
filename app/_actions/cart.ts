@@ -124,7 +124,15 @@ export async function getCartAction(): Promise<CartLineItems | undefined> {
 
   return {
     id: cartId,
-    cartItems: cart?.cartItems ?? [],
+    cartItems: cart?.cartItems
+      ? cart.cartItems.map((item) => ({
+          ...item,
+          product: {
+            ...item.product,
+            price: Number(item.product.price),
+          },
+        }))
+      : [],
     itemCount: quantityCount._sum.quantity ?? 0,
     totalAmount: totalAmount ?? 0,
   }
@@ -196,6 +204,22 @@ export const increaseProductQuantityAction = async (cartItemId: string) => {
         increment: 1,
       },
     },
+    where: {
+      id: cartItemId,
+    },
+  })
+
+  revalidatePath("/")
+}
+
+export const deleteCartItemAction = async (cartItemId: string) => {
+  let cartId = cookies().get("cartId")?.value
+
+  if (!cartId) {
+    throw new Error("Cart id not found, please try again.")
+  }
+
+  await prisma.cartItem.delete({
     where: {
       id: cartItemId,
     },

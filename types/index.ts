@@ -93,7 +93,7 @@ export interface Cart {
 export type CartLineItem = z.infer<typeof cartLineItemSchema> & {
   product: {
     name: string
-    price: ServerProduct["price"]
+    price: number
     images: Image[]
     category: {
       name: string
