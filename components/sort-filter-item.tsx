@@ -2,8 +2,8 @@ import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 
 import { SortFilterItem as SortItem } from "@/lib/constants"
-import { createUrl } from "@/lib/url"
 import { cn } from "@/lib/utils"
+import { useQueryString } from "@/hooks/use-query-string"
 import { buttonVariants } from "@/components/ui/button"
 
 interface SortFilterItemProps {
@@ -13,17 +13,10 @@ interface SortFilterItemProps {
 export default function SortFilterItem({ item }: SortFilterItemProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const { createQueryString } = useQueryString()
 
   const active = searchParams.get("sort") === item.slug
-  const q = searchParams.get("q")
-
-  const href = createUrl(
-    pathname,
-    new URLSearchParams({
-      ...(q && { q }),
-      ...(item?.slug?.length && { sort: item.slug }),
-    })
-  )
+  const href = `${pathname}?${createQueryString({ sort: item.slug })}`
 
   return (
     <Link

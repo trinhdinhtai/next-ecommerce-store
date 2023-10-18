@@ -7,7 +7,7 @@ import {
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/page-header"
-import PriceRangeSlider from "@/components/price-range-slider"
+import PriceRange from "@/components/price-range"
 import Products from "@/components/products"
 import SortFilterItemList from "@/components/sort-filter-item-list"
 import { getCategoryProductsAction } from "@/app/_actions/product"
@@ -58,7 +58,7 @@ export default async function CategoryIdPage({
           <Separator />
 
           <div className="mt-8 flex flex-col gap-8">
-            <PriceRangeSlider />
+            <PriceRange />
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-6">
@@ -70,7 +70,19 @@ export default async function CategoryIdPage({
           </PageHeader>
 
           <SortFilterItemList />
-          <Products products={products} pageCount={pageCount} />
+
+          {products.length ? (
+            <Products products={products} pageCount={pageCount} />
+          ) : (
+            <div className="mx-auto flex max-w-xs flex-1 flex-col space-y-1.5">
+              <h1 className="text-center text-2xl font-bold">
+                No products found
+              </h1>
+              <p className="text-center text-muted-foreground">
+                Try changing your filters, or check back later for new products
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </Shell>
